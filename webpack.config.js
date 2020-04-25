@@ -24,13 +24,12 @@ module.exports = {
   },
   resolve: {
     alias: {
-      // react: path.join(__dirname, "node_modules/styled-components"),
       react: path.join(__dirname, "node_modules/react")
     }
   },
   devServer: {
     historyApiFallback: true,
-    contentBase: './',
+    contentBase: path.join(__dirname, "src"),
     hot: true
   },
   plugins: [

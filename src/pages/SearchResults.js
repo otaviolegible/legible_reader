@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { IntlProvider } from 'react-intl'
 import { Container } from 'legible-ui-components'
 

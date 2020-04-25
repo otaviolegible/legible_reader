@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useIntl } from 'react-intl'
 import { useLocation } from 'react-router-dom'
 
@@ -34,11 +35,8 @@ const BooksResults = ({
   const { search } = useLocation()
 
   useEffect(() => {
-    if(search) {
-      setBooks([])
-      setFetch({})
-    }
-  }, [search])
+    if(books.length === 0 && !fetch.isLoading && !fetch.isReady) handleBooks({ setBooks, setFetch, search })
+  }, [])
 
   if(books.length === 0 && !fetch.isLoading && !fetch.isReady) handleBooks({ setBooks, setFetch, search })
 
@@ -51,9 +49,8 @@ const BooksResults = ({
       <h2>{f({id: 'title'}, {total: books.length})}</h2>
       <ul>
         {books.map((book, i) => (
-          console.log(book),
-          <li key={i}>
-            <img src={book.cover} />
+          <li key={i} style={{ border: '1px solid red' }}>
+            <Link to={`/book/${book.id}`}><img src={book.cover} height="180px" /></Link>
             <h2>{book.title}</h2>
           </li>
         ))}
