@@ -35,8 +35,11 @@ const BooksResults = ({
   const { search } = useLocation()
 
   useEffect(() => {
-    if(books.length === 0 && !fetch.isLoading && !fetch.isReady) handleBooks({ setBooks, setFetch, search })
-  }, [])
+    if(search && !fetch.isLoading) {
+      setBooks([])
+      setFetch({})
+    }
+  }, [search])
 
   if(books.length === 0 && !fetch.isLoading && !fetch.isReady) handleBooks({ setBooks, setFetch, search })
 
