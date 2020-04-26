@@ -1,20 +1,10 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Autosuggest } from 'legible-ui-components'
-
-const suggestOptions = { headers: { 'api-key': process.env.AUTOSUGGEST_API_KEY } }
-
-const fetchSuggestion = async suggestion => {
-  const res = await fetch(
-    `${process.env.AUTOSUGGEST}&search=${suggestion}`,
-    suggestOptions
-  )
-  const { value } = await res.json()
-  return value.map(v => v['@search.text'])
-}
+import { fetchSuggestions } from '../services'
 
 const getSuggestions = async suggestion => {
-  const suggestions = await fetchSuggestion(suggestion)
+  const suggestions = await fetchSuggestions(suggestion)
   return suggestions
 }
 

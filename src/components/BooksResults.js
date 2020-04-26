@@ -2,22 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useIntl } from 'react-intl'
 import { useLocation } from 'react-router-dom'
-
-const fetchSearchResults = async ({ keywords }) => {
-  try {
-    const params = `search=${keywords}`
-    const res = await fetch(`${process.env.SEARCH}&${params}`, {
-      headers: {
-        'api-key': process.env.SEARCH_API_KEY
-      }
-    })
-    const { value } = await res.json()
-    console.log('fetchSearchResults', value)
-    return value
-  } catch(e) {
-    console.log(e)
-  }
-}
+import { fetchSearchResults } from '../services'
 
 const handleBooks = async ({ setBooks, setFetch, search }) => {
   setFetch({ isReady: false, isLoading: true })
@@ -31,7 +16,7 @@ const BooksResults = ({
 }) => {
   const [ books, setBooks ] = useState(initialBooks)
   const [ fetch, setFetch ] = useState({ isLoading: false, isReady: false })
-  const { formatMessage: f } = useIntl();
+  const { formatMessage: f } = useIntl()
   const { search } = useLocation()
 
   useEffect(() => {

@@ -1,16 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-
-const fetchBook = async ({ id }) => {
-  try {
-    const params = `/api/book/${id}`
-    const res = await fetch(`${process.env.BOOKS_API}${params}`)
-    const book = await res.json()
-    return book
-  } catch(e) {
-    console.log(e)
-  }
-}
+import { Link, useParams } from 'react-router-dom'
+import { fetchBook } from '../services'
 
 const handleBook = async ({ setBook, setFetch, id }) => {
   setFetch({ isReady: false, isLoading: true })
@@ -30,9 +20,8 @@ const BookDetails = ({
 
   
   useEffect(() => {
-    if(!book.id && !fetch.isLoading && !fetch.isReady) handleBook({ setBook, setFetch, id })
+    if(book && !book.id && !fetch.isLoading && !fetch.isReady) handleBook({ setBook, setFetch, id })
   }, [book])
-
 
   if(!book && !fetch.isLoading && fetch.isReady) return <p>No book :(</p>
 
@@ -41,6 +30,7 @@ const BookDetails = ({
   return (
     <>
       <h2>{book.title}</h2>
+      <Link to={`/read/${book.id}`}>Read book</Link>
     </>
   )
 }

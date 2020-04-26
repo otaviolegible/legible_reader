@@ -13,6 +13,14 @@ module.exports = {
         }
       },
       {
+        test: /\.(epub)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+          },
+        ],
+      },
+      {
         test: /\.html$/,
         use: [
           {

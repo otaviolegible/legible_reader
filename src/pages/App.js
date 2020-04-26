@@ -9,6 +9,8 @@ import { LegibleTheme } from 'legible-ui-components'
 
 import Home from './Home'
 import Book from './Book'
+import Read from './Read'
+import NotFound from './NotFound'
 import SearchResults from './SearchResults'
 
 const App = () => {
@@ -24,6 +26,15 @@ const App = () => {
           </Route>
           <Route path="/book/:id">
             <Book />
+          </Route>
+          <Route exact path="/read/:id">
+            <Read />
+          </Route>
+          <Route exact path="/read/:id/:location">
+            <Read />
+          </Route>
+          <Route path="*">
+            <NotFound />
           </Route>
         </Switch>
       </Router>
