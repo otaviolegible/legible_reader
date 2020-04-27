@@ -38,8 +38,8 @@ const Reader = ({
     <ReaderWrapper>
       <EpubView
         url={book.book}
-        location={initiaLocation || decodeURIComponent(location)}
-        locationChanged={epubcifi => history.replace(`/read/${book.id}/${encodeURIComponent(epubcifi)}`)}
+        location={location !== undefined && decodeURIComponent(location)}
+        locationChanged={epubcifi => history.push(`/read/${book.id}/${encodeURIComponent(epubcifi)}`)}
       />
     </ReaderWrapper>
   )
