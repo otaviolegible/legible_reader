@@ -11,6 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@stripe/react-stripe-js": "^1.1.2",
+    "@stripe/stripe-js": "^1.4.0",
     "babel-polyfill": "^6.26.0",
     "react": "^16.13.1",
     "react-azure-b2c": "^0.2.8",
