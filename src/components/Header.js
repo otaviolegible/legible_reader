@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Logo, Button } from 'legible-ui-components'
-import { useAuthDispatch } from '../contexts/AuthProvider'
-import { useUserState, useUserDispatch } from '../contexts/UserProvider'
+import { useAuthDispatch } from '../contexts/auth'
+import { useUserState, useUserDispatch } from '../contexts/user'
 
 const Header = () => {
   const { user, isLoading } = useUserState()

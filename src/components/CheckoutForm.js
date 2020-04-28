@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 
 import { stripePaymentMethodHandler } from '../services'
-import { useUserState } from '../contexts/UserProvider';
+import { useUserState } from '../contexts/user';
 
 const CARD_ELEMENT_OPTIONS = {
   style: {
