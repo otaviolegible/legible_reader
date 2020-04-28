@@ -70,5 +70,5 @@ stages:
                 yarn
                 yarn build
               AppSettings: |
-                -REACT_APP_ADB2C_CLIENT_ID $(REACT_APP_ADB2C_CLIENT_ID) 
-                -REACT_APP_DNS $(REACT_APP_DNS)
+                -ADB2C_CLIENT_ID $(ADB2C_CLIENT_ID) 
+                -DNS $(DNS)

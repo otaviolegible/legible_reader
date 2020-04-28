@@ -10,8 +10,8 @@ import NotFound from './NotFound'
 import SearchResults from './SearchResults'
 import Subscription from './Subscription'
 
-import { AuthProvider } from '../contexts/AuthProvider'
-import { UserProvider } from '../contexts/UserProvider'
+import { AuthProvider } from '../contexts/auth'
+import { UserProvider } from '../contexts/user'
 
 const App = () => {
   return (

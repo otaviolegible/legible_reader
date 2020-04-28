@@ -5,10 +5,10 @@ import { setUser } from '../actions/user'
 const UserStateContext = createContext()
 const UserDispatchContext = createContext()
 
-export const useUserState = () => useContext(UserStateContext)
-export const useUserDispatch = () => useContext(UserDispatchContext)
+const useUserState = () => useContext(UserStateContext)
+const useUserDispatch = () => useContext(UserDispatchContext)
 
-export const UserProvider = ({ children, userState = initialState }) => {
+const UserProvider = ({ children, userState = initialState }) => {
   const [ state, dispatcher ] = useReducer(reducer, userState)
 
   const dispatch = {
@@ -22,4 +22,10 @@ export const UserProvider = ({ children, userState = initialState }) => {
       </UserDispatchContext.Provider>
     </UserStateContext.Provider>
   )
+}
+
+export {
+  UserProvider,
+  useUserDispatch,
+  useUserState
 }
