@@ -2,6 +2,7 @@ import 'babel-polyfill'
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { LegibleTheme } from 'legible-ui-components'
+import { AuthProvider, UserProvider } from 'legible-context-provider'
 
 import Home from './Home'
 import Book from './Book'
@@ -9,9 +10,6 @@ import Read from './Read'
 import NotFound from './NotFound'
 import SearchResults from './SearchResults'
 import Subscription from './Subscription'
-
-import { AuthProvider } from '../contexts/auth'
-import { UserProvider } from '../contexts/user'
 
 const App = () => {
   return (
