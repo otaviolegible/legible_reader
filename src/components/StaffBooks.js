@@ -1,15 +1,14 @@
 import React from 'react'
-import { useIntl } from 'react-intl'
+import { injectIntl } from 'react-intl';
 
 const StaffBooks = ({
+  staffpick,
   books = []
 }) => {
-  const {formatMessage: f} = useIntl();
-
   return (
     <>
-      <h2>{f({id: 'staffpicksTitle'})}</h2>
-      <p>{f({id: 'staffpickSubtitle'})}</p>
+      <h2>{staffpick.title}</h2>
+      <p>{staffpick.subtitle}</p>
       <ul>
         {books.map((book, i) => (
           <li key={i}>

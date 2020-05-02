@@ -8,11 +8,11 @@ import { home } from '../intl'
 
 const Home = () => {
   return (
-    <IntlProvider locale="en" messages={home}>
+    <IntlProvider locale={navigator.language} messages={home}>
       <Header />
       <Container>
         <SearchBar />
-        <StaffBooks />
+        <StaffBooks staffpick={home.staffpicks} />
       </Container>
     </IntlProvider>
   )

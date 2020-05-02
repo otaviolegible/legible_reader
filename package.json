@@ -18,7 +18,7 @@
     "react": "^16.13.1",
     "react-azure-b2c": "^0.2.8",
     "react-dom": "^16.13.1",
-    "react-intl": "^4.4.0",
+    "react-intl": "^4.5.1",
     "react-reader": "^0.18.3",
     "react-router-dom": "^5.1.2",
     "styled-components": "^5.1.0"
