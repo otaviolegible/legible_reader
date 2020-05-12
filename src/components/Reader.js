@@ -1,46 +1,49 @@
+import fetch from 'isomorphic-fetch'
 import React, { useEffect, useState } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
-import { EpubView } from "react-reader"
 import { Reader as ReaderWrapper } from 'legible-ui-components';
+import ePub from 'epubjs';
+
+import Epub from './Epub'
 import { fetchBook } from '../services'
-
-const useUserState = {
-  isSubscribed: true
-}
-
-const handleBook = async ({ setBook, setFetch, id }) => {
-  setFetch({ isReady: false, isLoading: true })
-  const book = await fetchBook({ id })
-  setBook(book)
-  setFetch({ isLoading: false, isReady: true })
-}
 
 const Reader = ({
   location: initiaLocation = null,
   book: initialBook = {
-    id: null
+    id: null,
+    book: { data: null }
   }
 }) => {
   const [ book, setBook ] = useState(initialBook)
-  const [ fetch, setFetch ] = useState({ isLoading: false, isReady: false })
+  const [ fetching, setFetch ] = useState({ isLoading: false, isReady: false })
   const history = useHistory()
   const { id, location } = useParams()
+
+  const handleBook = async () => {
+    setFetch({ isReady: false, isLoading: true })
+    const book = await fetchBook({ id })
+    setBook(book)
+    setFetch({ isLoading: false, isReady: true })
+  }
+  
   
   useEffect(() => {
-    if(!book.id && !fetch.isLoading && !fetch.isReady) handleBook({ setBook, setFetch, id })
+    if(book.id || fetching.isLoading || fetching.isReady) return
+      handleBook()
   }, [book, location])
 
-  if(!book && !fetch.isLoading && fetch.isReady) return <p>No book :(</p>
+  if(!book && !fetching.isLoading && fetching.isReady) return <p>No book :(</p>
 
-  if(fetch.isLoading) return null
+  if(fetching.isLoading) return <p>loading</p> 
 
   return (
     <ReaderWrapper>
-      <EpubView
-        url={book.book}
+      <Epub url={book.book} />
+      {/* <EpubView
+        url={url}
         location={location !== undefined && decodeURIComponent(location)}
         locationChanged={epubcifi => history.push(`/read/${book.id}/${encodeURIComponent(epubcifi)}`)}
-      />
+      /> */}
     </ReaderWrapper>
   )
 }

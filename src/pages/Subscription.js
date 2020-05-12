@@ -1,5 +1,7 @@
 import React from 'react'
+import { IntlProvider } from 'react-intl'
 import { SubscriptionInactive, SubscriptionActive } from '../components';
+import { subscription as translation } from '../intl'
 
 // TODO: this should be a user obect from user state in legible-context-provider
 const user = {
@@ -11,7 +13,7 @@ const user = {
   }
 }
 
-const Subscription = () => {
+const SubscriptionContent = () => {
   const { subscription } = user
 
   if(subscription.current_period_end > Date.now()) {
@@ -20,5 +22,11 @@ const Subscription = () => {
 
   return <SubscriptionInactive />
 }
+
+const Subscription = () => (
+  <IntlProvider locale={navigator.language} messages={translation}>
+    <SubscriptionContent />
+  </IntlProvider>
+)
 
 export default Subscription
