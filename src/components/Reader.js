@@ -1,8 +1,7 @@
-import fetch from 'isomorphic-fetch'
 import React, { useEffect, useState } from 'react'
-import { useParams, useHistory } from 'react-router-dom'
+import { useParams, useHistory, useLocation } from 'react-router-dom'
+import qs from 'qs'
 import { Reader as ReaderWrapper } from 'legible-ui-components';
-import ePub from 'epubjs';
 
 import Epub from './Epub'
 import { fetchBook } from '../services'
@@ -17,7 +16,9 @@ const Reader = ({
   const [ book, setBook ] = useState(initialBook)
   const [ fetching, setFetch ] = useState({ isLoading: false, isReady: false })
   const history = useHistory()
+  const { search } = useLocation()
   const { id, location } = useParams()
+  const { nav } = qs.parse(search, { ignoreQueryPrefix: true })
 
   const handleBook = async () => {
     setFetch({ isReady: false, isLoading: true })
@@ -25,12 +26,16 @@ const Reader = ({
     setBook(book)
     setFetch({ isLoading: false, isReady: true })
   }
-  
+
+  const handleLocationChange = book => {
+    console.log(book)
+    history.push(`?nav=${nav}`)
+  }
   
   useEffect(() => {
     if(book.id || fetching.isLoading || fetching.isReady) return
-      handleBook()
-  }, [book, location])
+    handleBook()
+  }, [book, fetching])
 
   if(!book && !fetching.isLoading && fetching.isReady) return <p>No book :(</p>
 
@@ -38,12 +43,11 @@ const Reader = ({
 
   return (
     <ReaderWrapper>
-      <Epub url={book.book} />
-      {/* <EpubView
-        url={url}
-        location={location !== undefined && decodeURIComponent(location)}
-        locationChanged={epubcifi => history.push(`/read/${book.id}/${encodeURIComponent(epubcifi)}`)}
-      /> */}
+      <Epub 
+        url={book.book}
+        location={nav}
+        locationChanged={handleLocationChange}
+      />
     </ReaderWrapper>
   )
 }
