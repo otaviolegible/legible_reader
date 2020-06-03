@@ -4,7 +4,7 @@ import qs from 'qs'
 import { Reader as ReaderWrapper } from 'legible-ui-components';
 
 import Epub from './Epub'
-import { fetchBook } from '../services'
+import { fetchBookFile } from '../services'
 
 const Reader = ({
   location: initiaLocation = null,
@@ -17,12 +17,12 @@ const Reader = ({
   const [ fetching, setFetch ] = useState({ isLoading: false, isReady: false })
   const history = useHistory()
   const { search } = useLocation()
-  const { id, location } = useParams()
+  const { language, id, location } = useParams()
   const { nav } = qs.parse(search, { ignoreQueryPrefix: true })
 
   const handleBook = async () => {
     setFetch({ isReady: false, isLoading: true })
-    const book = await fetchBook({ id })
+    const book = await fetchBookFile({ id, language })
     setBook(book)
     setFetch({ isLoading: false, isReady: true })
   }

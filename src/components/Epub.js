@@ -26,6 +26,7 @@ const Epub = ({
     setFetch({ isLoading: true, isReady: false })
     const book = new Book(url, initialSettings)
     await book.loading.navigation
+    console.log(book)
     setBook(book)
     setFetch({ isLoading: false, isReady: true })
   }
@@ -61,7 +62,6 @@ const Epub = ({
     if(!rendition) return
     rendition.attachTo('book-area')
     rendition.display(nav)
-    return () => rendition = null
   }, [rendition])
 
   if(!rendition) return <p>loading</p>

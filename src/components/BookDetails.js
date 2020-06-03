@@ -2,25 +2,20 @@ import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { fetchBook } from '../services'
 
-const handleBook = async ({ setBook, setFetch, id }) => {
-  setFetch({ isReady: false, isLoading: true })
-  const book = await fetchBook({ id })
-  setBook(book)
-  setFetch({ isLoading: false, isReady: true })
-}
-
-const BookDetails = ({
-  book: initialBook = {
-    id: null
-  }
-}) => {
+const BookDetails = ({ book: initialBook = { id: null } }) => {
   const [ book, setBook ] = useState(initialBook)
   const [ fetch, setFetch ] = useState({ isLoading: false, isReady: false })
-  const { id } = useParams()
+  const { id, language } = useParams()
 
+  const handleBook = async () => {
+    setFetch({ isReady: false, isLoading: true })
+    const book = await fetchBook({ id, language })
+    setBook(book)
+    setFetch({ isLoading: false, isReady: true })
+  }
   
   useEffect(() => {
-    if(book && !book.id && !fetch.isLoading && !fetch.isReady) handleBook({ setBook, setFetch, id })
+    if(book && !book.id && !fetch.isLoading && !fetch.isReady) handleBook()
   }, [book])
 
   if(!book && !fetch.isLoading && fetch.isReady) return <p>No book :(</p>
@@ -30,7 +25,7 @@ const BookDetails = ({
   return (
     <>
       <h2>{book.title}</h2>
-      <Link to={`/read/${book.id}`}>Read book</Link>
+      <Link to={`/read/${language}/${id}`}>Read book</Link>
     </>
   )
 }

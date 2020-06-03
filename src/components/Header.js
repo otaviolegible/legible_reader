@@ -1,26 +1,38 @@
 import React, { useEffect } from 'react'
 import { Logo, Button } from 'legible-ui-components'
-import { useAuthDispatch, useUserState, useUserDispatch } from 'legible-context-provider'
+import { useAuthState, useAuthDispatch, useUserState, useUserDispatch } from 'legible-context-provider'
 
 const Header = () => {
   const { user, isLoading } = useUserState()
-  const { setUser } = useUserDispatch()
-  const { signIn, signOut } = useAuthDispatch()
-  const idtoken = sessionStorage.getItem('msal.idtoken') || ''
+  const { getUser, clearUser } = useUserDispatch()
+  const { session } = useAuthState()
+  const { signIn, signOut, getAccessToken } = useAuthDispatch()
+
+  const handleSignIn = () => signIn()
+
+  const handleSignOut = () => {
+    signOut()
+    clearUser()
+  }
 
   useEffect(() => {
-    console.log('U S E R', user)
-    if(idtoken.length > 0 && !isLoading) setUser(idtoken)
-  }, [])
+    if(session.jwtToken === '') return
+    getUser()
+  }, [session])
+
+  useEffect(() => {
+    if(session.jwtToken !== '') return
+    getAccessToken()
+  }, [session])
 
   if(isLoading) return null
 
-  if(user.id) {
+  if(user.username) {
     return (
       <header>
         <Logo />
-        <p>Welcome, {user.displayName}</p>
-        <Button onClick={() => signOut()}>Sign out</Button>
+        <p>Welcome, {user.username}</p>
+        <Button onClick={handleSignOut}>Sign out</Button>
       </header>
     )
   }
@@ -28,8 +40,7 @@ const Header = () => {
   return (
     <header>
       <Logo />
-      <Button onClick={() => signIn()}>Sign in</Button>
-      <Button onClick={() => signOut()}>Sign out</Button>
+      <Button onClick={handleSignIn}>Sign in</Button>
     </header>
   )
 }

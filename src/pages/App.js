@@ -27,13 +27,13 @@ const App = () => {
               <Route path="/subscription">
                 <Subscription />
               </Route>
-              <Route path="/book/:id">
+              <Route path="/book/:language/:id">
                 <Book />
               </Route>
-              <Route exact path="/read/:id">
+              <Route exact path="/read/:language/:id">
                 <Read />
               </Route>
-              <Route exact path="/read/:id/:location">
+              <Route exact path="/read/:language/:id/:location">
                 <Read />
               </Route>
               <Route path="*">
