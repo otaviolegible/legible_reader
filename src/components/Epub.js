@@ -1,6 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { Book, Rendition } from 'epubjs'
-import InlineView from 'epubjs/lib/managers/views/inline'
+// import InlineView from 'epubjs/lib/managers/views/inline'
+
+import styled from 'styled-components'
+
+const BookWrapper = styled.div`
+  height: 100vh;
+  width: 100%;
+  #book-area {
+    height: 100vh;
+    width: 100%;
+  }
+  iframe {
+    height: 100vh;
+    width: 100%;
+  }
+`
 
 const Epub = ({
   url,
@@ -14,7 +29,7 @@ const Epub = ({
     method: 'continuous',
     width: '100%',
     height: '100%',
-    view: InlineView
+    // view: InlineView
   }
 }) => {
   const [fetching, setFetch] = useState({ isLoading: false, isReady: false })
@@ -26,7 +41,6 @@ const Epub = ({
     setFetch({ isLoading: true, isReady: false })
     const book = new Book(url, initialSettings)
     await book.loading.navigation
-    console.log(book)
     setBook(book)
     setFetch({ isLoading: false, isReady: true })
   }
@@ -36,16 +50,26 @@ const Epub = ({
     setRendition(res)
   }
 
-  const handlePrev = async () => {
-    const asd = await rendition.prev()
-    console.log(asd)
-    locationChanged({ nav: nav - 1, book })
-    handleRendition()
+  const handlePrev = () => rendition.prev()
+
+  const handleNext = () => rendition.next()
+
+  const changeLocation = rend => {
+    locationChanged(rend.end)
+    setNav(rend.end)
   }
 
-  const handleNext = () => {
-    console.log(rendition)
-    rendition.next()
+  const handleKeyPress = e => {
+    switch (e.key) {
+      case 'ArrowRight':
+        handleNext()
+        break;
+      case 'ArrowLeft':
+        handlePrev()
+        break;
+      default:
+        break;
+    }
   }
 
   useEffect(() => {
@@ -54,14 +78,18 @@ const Epub = ({
   }, [fetching.isLoading, fetching.isReady])
 
   useEffect(() => {
-    if(!fetching.isReady) return
-    handleRendition()
+    if(fetching.isReady) handleRendition()
   }, [fetching.isReady])
 
-  useEffect(() => {
-    if(!rendition) return
+  const initRender = () => {
     rendition.attachTo('book-area')
     rendition.display(nav)
+    rendition.on('locationChanged', changeLocation)
+    rendition.on('keyup', handleKeyPress)
+  }
+
+  useEffect(() => {
+    if(rendition) initRender()
   }, [rendition])
 
   if(!rendition) return <p>loading</p>
@@ -70,7 +98,9 @@ const Epub = ({
     <>
       <button onClick={handlePrev}>prev</button>
       <button onClick={handleNext}>next</button>
-      <div id="book-area" style={{ width: '100%', height: '100%' }} />
+      <BookWrapper>
+        <div id="book-area" />
+      </BookWrapper>
     </>
   )
 }

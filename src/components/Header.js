@@ -1,37 +1,26 @@
-import React, { useEffect } from 'react'
+import React from 'react'
+import { useHistory } from 'react-router-dom'
 import { Logo, Button } from 'legible-ui-components'
-import { useAuthState, useAuthDispatch, useUserState, useUserDispatch } from 'legible-context-provider'
+import { useAuthDispatch, useUserState, useUserDispatch } from 'legible-context-provider'
 
 const Header = () => {
-  const { user, isLoading } = useUserState()
-  const { getUser, clearUser } = useUserDispatch()
-  const { session } = useAuthState()
-  const { signIn, signOut, getAccessToken } = useAuthDispatch()
-
-  const handleSignIn = () => signIn()
+  const { user } = useUserState()
+  const { clearUser } = useUserDispatch()
+  const { signOut } = useAuthDispatch()
+  const history = useHistory()
 
   const handleSignOut = () => {
     signOut()
     clearUser()
   }
 
-  useEffect(() => {
-    if(session.jwtToken === '') return
-    getUser()
-  }, [session])
-
-  useEffect(() => {
-    if(session.jwtToken !== '') return
-    getAccessToken()
-  }, [session])
-
-  if(isLoading) return null
+  const handleSignIn = () => history.push('/sign-in')
 
   if(user.username) {
     return (
       <header>
         <Logo />
-        <p>Welcome, {user.username}</p>
+        <p>Welcome, {user.attributes.email}</p>
         <Button onClick={handleSignOut}>Sign out</Button>
       </header>
     )

@@ -27,10 +27,7 @@ const Reader = ({
     setFetch({ isLoading: false, isReady: true })
   }
 
-  const handleLocationChange = book => {
-    console.log(book)
-    history.push(`?nav=${nav}`)
-  }
+  const handleLocationChange = newNav => history.push(`?nav=${newNav}`)
   
   useEffect(() => {
     if(book.id || fetching.isLoading || fetching.isReady) return
