@@ -1,17 +1,15 @@
 import React from 'react'
 import { Container } from 'legible-ui-components'
 
-import { Header, SearchBar, StaffBooks } from '../components'
-
-import { home } from '../intl'
+import { Header, SearchBar, LatestBooks } from '../components'
 
 const Home = () => {
   return (
     <>
-      <Header />
       <Container>
+        <Header />
         <SearchBar />
-        <StaffBooks staffpick={home.staffpicks} />
+        <LatestBooks />
       </Container>
     </>
   )

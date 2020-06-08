@@ -2,21 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { Book, Rendition } from 'epubjs'
 // import InlineView from 'epubjs/lib/managers/views/inline'
 
-import styled from 'styled-components'
-
-const BookWrapper = styled.div`
-  height: 100vh;
-  width: 100%;
-  #book-area {
-    height: 100vh;
-    width: 100%;
-  }
-  iframe {
-    height: 100vh;
-    width: 100%;
-  }
-`
-
 const Epub = ({
   url,
   location = 0,
@@ -96,11 +81,11 @@ const Epub = ({
 
   return (
     <>
-      <button onClick={handlePrev}>prev</button>
-      <button onClick={handleNext}>next</button>
-      <BookWrapper>
-        <div id="book-area" />
-      </BookWrapper>
+      <nav>
+        <button className='prev' onClick={handlePrev}>&lang;</button>
+        <button className='next' onClick={handleNext}>&rang;</button>
+      </nav>
+      <div id="book-area" />
     </>
   )
 }

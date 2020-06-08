@@ -1,4 +1,5 @@
 export { fetchBook } from './fetchBook'
+export { fetchBooks } from './fetchBooks'
 export { fetchBookFile } from './fetchBookFile'
 export { fetchSearchResults } from './fetchSearchResults'
 export { fetchSuggestions } from './fetchSuggestions'

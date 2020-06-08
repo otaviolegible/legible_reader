@@ -1,5 +1,6 @@
 export { default as SearchBar } from './SearchBar'
 export { default as StaffBooks } from './StaffBooks'
+export { default as LatestBooks } from './LatestBooks'
 export { default as BooksResults } from './BooksResults'
 export { default as BookDetails } from './BookDetails'
 export { default as Header } from './Header'

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
-import { Logo, Button } from 'legible-ui-components'
+import { LogoMain as Logo, Button } from 'legible-ui-components'
 import { useAuthDispatch, useUserState, useUserDispatch } from 'legible-context-provider'
 
 const Header = () => {
