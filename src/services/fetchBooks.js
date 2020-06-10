@@ -1,6 +1,6 @@
 export const fetchBooks = async (language = 'en-us') => {
   try {
-    const params = `/books/${language}`
+    const params = `/api/books/${language}`
     const res = await fetch(`${process.env.BOOKS}${params}`)
     const {books} = await res.json()
     return books
