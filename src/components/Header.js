@@ -1,5 +1,5 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { LogoMain as Logo, Button } from 'legible-ui-components'
 import { useAuthDispatch, useUserState, useUserDispatch } from 'legible-context-provider'
 
@@ -19,7 +19,7 @@ const Header = () => {
   if(user.username) {
     return (
       <header>
-        <Logo />
+        <Link to='/'><Logo /></Link>
         <p>Welcome, {user.attributes.email}</p>
         <Button onClick={handleSignOut}>Sign out</Button>
       </header>
@@ -28,7 +28,7 @@ const Header = () => {
 
   return (
     <header>
-      <Logo />
+      <Link to='/'><Logo /></Link>
       <Button onClick={handleSignIn}>Sign in</Button>
     </header>
   )
