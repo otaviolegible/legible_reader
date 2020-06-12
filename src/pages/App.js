@@ -11,6 +11,7 @@ import NotFound from './NotFound'
 import SignIn from './SignIn'
 import SearchResults from './SearchResults'
 import Subscription from './Subscription'
+import VerifyEmail from './VerifyEmail'
 
 const PrivateRoute = ({ children, ...rest }) => {
   const { session } = useAuthState()
@@ -31,17 +32,19 @@ const PrivateRoute = ({ children, ...rest }) => {
 }
 
 const Routing = () => {
-  const { getUser } = useUserDispatch()
-  const { session } = useAuthState()
-  const { getAccessToken } = useAuthDispatch()
+  const {getUser} = useUserDispatch()
+  const {getAccessToken} = useAuthDispatch()
+  const {session} = useAuthState()
 
   useEffect(() => {
-    if(session && session.jwtToken === '') return
-    getUser()
+    if(!session) return
+    if(session.jwtToken === '') return
+    getUser({jwtToken: session.jwtToken})
   }, [session])
 
   useEffect(() => {
-    if(session && session.jwtToken !== '') return
+    if(!session) return
+    if(session.jwtToken !== '') return
     getAccessToken()
   }, [session])
 
@@ -50,6 +53,9 @@ const Routing = () => {
       <Switch>
         <Route exact path="/">
           <Home />
+        </Route>
+        <Route path='/verify'>
+          <VerifyEmail />
         </Route>
         <Route path="/search">
           <SearchResults />
@@ -63,12 +69,12 @@ const Routing = () => {
         <Route path="/book/:language/:id">
           <Book />
         </Route>
-        <Route exact path="/read/:language/:id">
+        <PrivateRoute exact path="/read/:language/:id">
           <Read />
-        </Route>
-        <Route exact path="/read/:language/:id/:location">
+        </PrivateRoute>
+        <PrivateRoute exact path="/read/:language/:id/:location">
           <Read />
-        </Route>
+        </PrivateRoute>
         <Route path="*">
           <NotFound />
         </Route>
@@ -80,7 +86,7 @@ const Routing = () => {
 const App = () => {
   return (
     <LegibleTheme>
-      <AuthProvider>
+      <AuthProvider config='reader'>
         <UserProvider>
           <Routing />
         </UserProvider>

@@ -20,7 +20,7 @@ const Header = () => {
     return (
       <header>
         <Link to='/'><Logo /></Link>
-        <p>Welcome, {user.attributes.email}</p>
+        <p>Welcome, {user.email}</p>
         <Button onClick={handleSignOut}>Sign out</Button>
       </header>
     )
