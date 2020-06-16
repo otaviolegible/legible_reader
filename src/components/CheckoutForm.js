@@ -1,60 +1,34 @@
 import React, {useState} from 'react';
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
-
-import { stripePaymentMethodHandler } from '../services'
-import { useUserState } from 'legible-context-provider';
-
-const CARD_ELEMENT_OPTIONS = {
-  style: {
-    base: {
-      color: "#32325d",
-      fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-      fontSmoothing: "antialiased",
-      fontSize: "16px",
-      "::placeholder": {
-        color: "#aab7c4",
-      },
-    },
-    invalid: {
-      color: "#fa755a",
-      iconColor: "#fa755a",
-    },
-  },
-};
-
-const handleSubmit = async (event, email, stripe, elements) => {
-  event.preventDefault();
-
-  if (!stripe || !elements) return
-
-  const result = await stripe.createPaymentMethod({
-    type: 'card',
-    card: elements.getElement(CardElement),
-    billing_details: {
-      email,
-    },
-  });
-
-  stripePaymentMethodHandler(result, email);
-};
+import { useUserState, useAuthState, useUserDispatch } from '@legible/context-provider';
+import { CreditCard as CreditCardStyles } from '@legible/ui-components'
 
 const CheckoutForm = () => {
-  const [ email, setEmail ] = useState('');
-  const { user } = useUserState();
+  const {session} = useAuthState();
+  const {isLoading, user} = useUserState();
+  const {createSubscription} = useUserDispatch()
   const stripe = useStripe();
   const elements = useElements();
 
-  console.log(user)
+  const handleSubmit = async (e) => {
+    const type = 'card'
+    const card = elements.getElement(CardElement)
+    const billing_details = { email: user.email }
+
+    e.preventDefault()
+
+    if(!stripe || !elements) return
+
+    const {paymentMethod} = await stripe.createPaymentMethod({ type, card, billing_details});
+  
+    createSubscription(session.jwtToken, user.email, paymentMethod)
+  };
 
   return (
     <form>
-      <span>email</span>
-      <input type="text" onChange={e => setEmail(e.target.value)} />
-      <hr />
-      <CardElement options={CARD_ELEMENT_OPTIONS} />
-      <button type="submit" disabled={!stripe} onClick={e => handleSubmit(e, email, stripe, elements)}>
-        Subscribe
-      </button>
+      <h4>CC info</h4>
+      <CardElement options={CreditCardStyles} />
+      <button disabled={!stripe || isLoading} onClick={handleSubmit}>Subscribe</button>
     </form>
   );
 }

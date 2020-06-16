@@ -1,21 +1,16 @@
 import React from 'react'
-import { FormattedMessage, FormattedDate } from 'react-intl';
+import {useUserState} from '@legible/context-provider'
+import {FormattedMessage, FormattedDate} from 'react-intl';
 
-import { Header } from '../components';
-
-const SubscriptionActive = ({ subscription }) => {
+const SubscriptionActive = () => {
+  const {user} = useUserState()
   const cancelSubscription = () => console.log('cancel')
+  const {subscription} = user
 
   return (
     <>
-      <Header />
       <h2>
-          <FormattedMessage
-            id='expiration' 
-            values={{
-              total: <FormattedDate value={new Date(subscription.current_period_start)} /> 
-            }} 
-          />  
+          <FormattedMessage id='expiration' values={{total: <FormattedDate value={new Date(subscription.current_period_end)} />}} />  
       </h2>
       <hr />
       <button onClick={cancelSubscription}>Cancel subscription</button>

@@ -9,7 +9,6 @@ const RandomBooks = ({
 
   const handleBooks = async () => {
     const res = await fetchBooks()
-    console.log(res)
     setBooks(res)
   }
 

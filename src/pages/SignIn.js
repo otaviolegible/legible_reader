@@ -7,7 +7,7 @@ import SignUpModal from '../components/SignUpModal'
 
 const SignIn = () => {
   const { signIn, signUp } = useAuthDispatch()
-  const { user } = useUserState()
+  const { username } = useUserState()
   const history = useHistory()
 
   const handleSignIn = ({email, password}) => signIn(email, password)
@@ -15,9 +15,9 @@ const SignIn = () => {
   const handleSignUp = ({email, password}) => signUp(email, password)
 
   useEffect(() => {
-    if(!user.username) return
+    if(!username) return
     history.goBack()
-  }, [user])
+  }, [username])
 
   return (
     <Container>

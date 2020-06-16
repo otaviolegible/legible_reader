@@ -4,7 +4,7 @@ import { LogoMain as Logo, Button } from 'legible-ui-components'
 import { useAuthDispatch, useUserState, useUserDispatch } from 'legible-context-provider'
 
 const Header = () => {
-  const { user } = useUserState()
+  const { email, username } = useUserState()
   const { clearUser } = useUserDispatch()
   const { signOut } = useAuthDispatch()
   const history = useHistory()
@@ -16,11 +16,11 @@ const Header = () => {
 
   const handleSignIn = () => history.push('/sign-in')
 
-  if(user.username) {
+  if(username) {
     return (
       <header>
         <Link to='/'><Logo /></Link>
-        <p>Welcome, {user.email}</p>
+        <p>Welcome, <Link to='/profile'>{email}</Link></p>
         <Button onClick={handleSignOut}>Sign out</Button>
       </header>
     )

@@ -10,7 +10,7 @@ import Read from './Read'
 import NotFound from './NotFound'
 import SignIn from './SignIn'
 import SearchResults from './SearchResults'
-import Subscription from './Subscription'
+import Profile from './Profile'
 import VerifyEmail from './VerifyEmail'
 
 const PrivateRoute = ({ children, ...rest }) => {
@@ -63,12 +63,12 @@ const Routing = () => {
         <Route path="/sign-in">
           <SignIn />
         </Route>
-        <Route path="/subscription">
-          <Subscription />
-        </Route>
         <Route path="/book/:language/:id">
           <Book />
         </Route>
+        <PrivateRoute path="/profile">
+          <Profile />
+        </PrivateRoute>
         <PrivateRoute exact path="/read/:language/:id">
           <Read />
         </PrivateRoute>
