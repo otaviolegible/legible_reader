@@ -5,7 +5,7 @@ import SubscriptionInactive from './SubscriptionInactive'
 
 export const SubscriptionModal = ({isActive: initialActive = false}) => {
   const [isActive, setIsActive] = useState(initialActive)
-  const {user} = useUserState()
+  const user = useUserState()
 
   useEffect(() => {
     if(user.subscription && user.subscription.id) setIsActive(true)

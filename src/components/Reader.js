@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, useHistory, useLocation } from 'react-router-dom'
 import qs from 'qs'
-import { Reader as ReaderWrapper } from 'legible-ui-components';
-
+import { useUserState } from '@legible/context-provider';
+import { Reader as ReaderWrapper } from '@legible/ui-components';
 import Epub from './Epub'
+import Ads from './Ads'
 import { fetchBookFile } from '../services'
 
 const Reader = ({
-  location: initiaLocation = null,
   book: initialBook = {
     id: null,
     book: { data: null }
@@ -15,9 +15,10 @@ const Reader = ({
 }) => {
   const [ book, setBook ] = useState(initialBook)
   const [ fetching, setFetch ] = useState({ isLoading: false, isReady: false })
+  const { subscription } = useUserState()
   const history = useHistory()
   const { search } = useLocation()
-  const { language, id, location } = useParams()
+  const { language, id } = useParams()
   const { nav } = qs.parse(search, { ignoreQueryPrefix: true })
 
   const handleBook = async () => {
@@ -38,8 +39,19 @@ const Reader = ({
 
   if(fetching.isLoading) return <p>loading</p> 
 
+  if(subscription.id) return (
+    <ReaderWrapper>
+      <Epub 
+        url={book.book}
+        location={nav}
+        locationChanged={handleLocationChange}
+      />
+    </ReaderWrapper> 
+  )
+
   return (
     <ReaderWrapper>
+      <Ads />
       <Epub 
         url={book.book}
         location={nav}

@@ -3,9 +3,8 @@ import {useUserState} from '@legible/context-provider'
 import {FormattedMessage, FormattedDate} from 'react-intl';
 
 const SubscriptionActive = () => {
-  const {user} = useUserState()
+  const {subscription} = useUserState()
   const cancelSubscription = () => console.log('cancel')
-  const {subscription} = user
 
   return (
     <>
