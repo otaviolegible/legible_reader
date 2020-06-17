@@ -1,6 +1,6 @@
-export const fetchBook = async ({ id, language }) => {
+export const fetchBook = async ({ id }) => {
   try {
-    const params = `/api/book/${language}/${id}`
+    const params = `/api/book/${id}`
     const res = await fetch(`${process.env.BOOKS}${params}`)
     const book = await res.json()
     return book

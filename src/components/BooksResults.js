@@ -37,8 +37,8 @@ const BooksResults = ({
       <h2>{f({id: 'title'}, {total: books.length})}</h2>
       <ul>
         {books.map((book, i) => (
-          <li key={i} style={{ border: '1px solid red' }}>
-            <Link to={`/book/${book.id}`}><img src={book.cover} height="180px" /></Link>
+          <li key={i} style={{ borderBottom: '1px solid black' }}>
+            <Link to={`/book/${book.id}`}><img src={book.cover.url} height="180px" /></Link>
             <h2>{book.title}</h2>
           </li>
         ))}

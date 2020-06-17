@@ -5,11 +5,11 @@ import { fetchBook } from '../services'
 const BookDetails = ({ book: initialBook = { id: null, cover: { url: null} } }) => {
   const [ book, setBook ] = useState(initialBook)
   const [ fetch, setFetch ] = useState({ isLoading: false, isReady: false })
-  const { id, language } = useParams()
+  const { id } = useParams()
 
   const handleBook = async () => {
     setFetch({ isReady: false, isLoading: true })
-    const book = await fetchBook({ id, language })
+    const book = await fetchBook({ id })
     setBook(book)
     setFetch({ isLoading: false, isReady: true })
   }
@@ -26,7 +26,7 @@ const BookDetails = ({ book: initialBook = { id: null, cover: { url: null} } }) 
     <>
       <img src={book.cover.url} />
       <h2>{book.title}</h2>
-      <Link to={`/read/${language}/${id}`}>Read book</Link>
+      <Link to={`/read/${id}`}>Read book</Link>
     </>
   )
 }

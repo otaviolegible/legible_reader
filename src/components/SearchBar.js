@@ -1,27 +1,38 @@
-import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
-import { Autosuggest } from 'legible-ui-components'
+import React, { useState, useEffect } from 'react'
+import {useHistory} from 'react-router-dom'
+import { Autosuggest } from '@legible/ui-components'
 import { fetchSuggestions } from '../services'
 
-const getSuggestions = async suggestion => {
-  const suggestions = await fetchSuggestions(suggestion)
-  return suggestions
-}
-
-const autosuggest = keywords => keywords.length >= 3 ? getSuggestions(keywords) : []
-
 const SearchBar = ({
-  keywords: initialKeywords = ''
+  placeholder = '',
+  keywords: initialKeywords = '',
+  suggestions: initialSuggestions = []
 }) => {
-  const [ keywords, setKeywords ] = useState(initialKeywords)
+  const [keywords, setKeywords] = useState(initialKeywords)
+  const [suggestions, setSuggestions] = useState(initialSuggestions)
   const history = useHistory()
+
+  const handleSugestions = async () => {
+    const suggestions = keywords.length > 3 ? await fetchSuggestions(keywords) : []
+    const updateSuggestions = suggestions.map(sug => ({ label: sug, value: sug }))
+    return setSuggestions(updateSuggestions)
+  }
+
+  const handleKeywords = value => setKeywords(value)
+
+  const handleSearch = ({value}) => history.push(`search?${value}`)
+
+  useEffect(() => {
+    handleSugestions()
+  }, [keywords])
 
   return (
     <Autosuggest
+      placeholder={placeholder}
       keywords={keywords}
-      onChange={value => setKeywords(value)}
-      onSearch={value => history.push(`search?${value}`)}
-      suggestions={autosuggest(keywords)}
+      onChange={handleKeywords}
+      onSearch={handleSearch}
+      suggestions={suggestions}
     />
   )
 }

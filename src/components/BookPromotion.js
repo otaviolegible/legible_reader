@@ -24,7 +24,7 @@ const MonetizationStatus = ({ monetization }) => {
 
 export const BookPromotion = ({ book }) => {
   return (
-    <BookWrapper to={`/book/${book.language}/${book.id}`}>
+    <BookWrapper to={`/book/${book.id}`}>
       <MonetizationStatus monetization={book.monetization} />
       <img src={book.cover.url} />
     </BookWrapper>

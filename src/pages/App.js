@@ -63,16 +63,16 @@ const Routing = () => {
         <Route path="/sign-in">
           <SignIn />
         </Route>
-        <Route path="/book/:language/:id">
+        <Route path="/book/:id">
           <Book />
         </Route>
         <PrivateRoute path="/profile">
           <Profile />
         </PrivateRoute>
-        <PrivateRoute exact path="/read/:language/:id">
+        <PrivateRoute exact path="/read/:id">
           <Read />
         </PrivateRoute>
-        <PrivateRoute exact path="/read/:language/:id/:location">
+        <PrivateRoute exact path="/read/:id/:location">
           <Read />
         </PrivateRoute>
         <Route path="*">
