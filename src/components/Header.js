@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, useHistory } from 'react-router-dom'
-import { LogoMain as Logo, Button } from 'legible-ui-components'
-import { useAuthDispatch, useUserState, useUserDispatch } from 'legible-context-provider'
+import { LogoMain as Logo, Button } from '@legible/ui-components'
+import { useAuthDispatch, useUserState, useUserDispatch } from '@legible/context-provider'
 
 const Header = () => {
   const { email, username } = useUserState()

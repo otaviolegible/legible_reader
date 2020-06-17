@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useUserState } from 'legible-context-provider'
+import { useUserState } from '@legible/context-provider'
 import SubscriptionActive from './SubscriptionActive'
 import SubscriptionInactive from './SubscriptionInactive'
 

@@ -3,7 +3,7 @@ import { IntlProvider } from 'react-intl'
 import { SubscriptionInactive, SubscriptionActive } from '../components';
 import { subscription as translation } from '../intl'
 
-// TODO: this should be a user obect from user state in legible-context-provider
+// TODO: this should be a user obect from user state in @legible/context-provider
 const user = {
   subscription: {
     id: 'sub_HB46BAfevvz24v',

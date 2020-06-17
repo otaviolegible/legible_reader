@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Autosuggest } from 'legible-ui-components'
+import { Autosuggest } from '@legible/ui-components'
 import { fetchSuggestions } from '../services'
 
 const getSuggestions = async suggestion => {
