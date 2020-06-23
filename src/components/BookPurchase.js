@@ -2,18 +2,18 @@ import React from 'react'
 import {loadStripe} from '@stripe/stripe-js';
 import {Elements} from '@stripe/react-stripe-js';
 
-import { Header, SubscriptionForm } from '../components';
+import CheckoutForm from './CheckoutForm';
 
 const stripePromise = loadStripe(process.env.STRIPE_API_KEY);
 
-const SubscriptionInactive = () => {
+const BookPurchase = () => {
   return (
     <>
       <Elements stripe={stripePromise}>
-        <SubscriptionForm />
+        <CheckoutForm />
       </Elements>
     </>
   )
 }
 
-export default SubscriptionInactive
+export default BookPurchase

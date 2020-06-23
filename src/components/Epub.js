@@ -17,17 +17,17 @@ const Epub = ({
     // view: InlineView
   }
 }) => {
-  const [fetching, setFetch] = useState({ isLoading: false, isReady: false })
+  const [isLoading, setIsLoading] = useState(true)
   const [nav, setNav] = useState(location)
   const [book, setBook] = useState()
   const [rendition, setRendition] = useState()
 
   const handleBook = async () => {
-    setFetch({ isLoading: true, isReady: false })
+    setIsLoading(true)
     const book = new Book(url, initialSettings)
     await book.loading.navigation
     setBook(book)
-    setFetch({ isLoading: false, isReady: true })
+    setIsLoading(false)
   }
 
   const handleRendition = () => {
@@ -44,6 +44,13 @@ const Epub = ({
     setNav(rend.end)
   }
 
+  const initRender = () => {
+    rendition.attachTo('book-area')
+    rendition.display(nav)
+    rendition.on('locationChanged', changeLocation)
+    rendition.on('keyup', handleKeyPress)
+  }
+
   const handleKeyPress = e => {
     switch (e.key) {
       case 'ArrowRight':
@@ -58,23 +65,18 @@ const Epub = ({
   }
 
   useEffect(() => {
-    if(fetching.isLoading || fetching.isReady) return
-    handleBook()
-  }, [fetching.isLoading, fetching.isReady])
+    if(!book || !isLoading) handleBook()
+    return () => setBook()
+  }, [])
 
   useEffect(() => {
-    if(fetching.isReady) handleRendition()
-  }, [fetching.isReady])
-
-  const initRender = () => {
-    rendition.attachTo('book-area')
-    rendition.display(nav)
-    rendition.on('locationChanged', changeLocation)
-    rendition.on('keyup', handleKeyPress)
-  }
+    if(book) handleRendition()
+    return () => setBook()
+  }, [book])
 
   useEffect(() => {
     if(rendition) initRender()
+    return () => setBook()
   }, [rendition])
 
   if(!rendition) return <p>loading</p>

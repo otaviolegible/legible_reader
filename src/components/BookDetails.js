@@ -2,20 +2,20 @@ import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { fetchBook } from '../services'
 
-const BookDetails = ({ book: initialBook = { id: null, cover: { url: null} } }) => {
+const BookDetails = ({ book: initialBook = { id: null, cover: { url: null}, pricing: { list: null, sale: null } } }) => {
   const [ book, setBook ] = useState(initialBook)
-  const [ fetch, setFetch ] = useState({ isLoading: false, isReady: false })
+  const [ isLoading, setIsLoading ] = useState(false)
   const { id } = useParams()
 
   const handleBook = async () => {
-    setFetch({ isReady: false, isLoading: true })
+    setIsLoading(true)
     const book = await fetchBook({ id })
     setBook(book)
-    setFetch({ isLoading: false, isReady: true })
+    setIsLoading(false)
   }
   
   useEffect(() => {
-    if(book && !book.id && !fetch.isLoading && !fetch.isReady) handleBook()
+    if(book && !book.id && !isLoading) handleBook()
   }, [book])
 
   if(!book && !fetch.isLoading && fetch.isReady) return <p>No book :(</p>
@@ -27,6 +27,7 @@ const BookDetails = ({ book: initialBook = { id: null, cover: { url: null} } }) 
       <img src={book.cover.url} />
       <h2>{book.title}</h2>
       <Link to={`/read/${id}`}>Read book</Link>
+      <Link to={`/purchase/${id}`}>Purchase book: {book.pricing.list}</Link>
     </>
   )
 }

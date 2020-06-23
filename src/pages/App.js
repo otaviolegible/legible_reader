@@ -11,6 +11,7 @@ import NotFound from './NotFound'
 import SignIn from './SignIn'
 import SearchResults from './SearchResults'
 import Profile from './Profile'
+import Purchase from './Purchase'
 import VerifyEmail from './VerifyEmail'
 
 const PrivateRoute = ({ children, ...rest }) => {
@@ -66,6 +67,9 @@ const Routing = () => {
         <Route path="/book/:id">
           <Book />
         </Route>
+        <PrivateRoute path="/purchase/:id">
+          <Purchase />
+        </PrivateRoute>
         <PrivateRoute path="/profile">
           <Profile />
         </PrivateRoute>

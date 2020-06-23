@@ -6,6 +6,7 @@ import { Reader as ReaderWrapper } from '@legible/ui-components';
 import Epub from './Epub'
 import Ads from './Ads'
 import { fetchBookFile } from '../services'
+import { useAuthState } from 'legible-context-provider/dist/contexts/auth';
 
 const Reader = ({
   book: initialBook = {
@@ -14,30 +15,31 @@ const Reader = ({
   }
 }) => {
   const [ book, setBook ] = useState(initialBook)
-  const [ fetching, setFetch ] = useState({ isLoading: false, isReady: false })
+  const [isLoading, setIsLoading] = useState(true)
   const { subscription } = useUserState()
+  const { session } = useAuthState()
   const history = useHistory()
   const { search } = useLocation()
-  const { language, id } = useParams()
+  const { id } = useParams()
+  const { jwtToken } = session
+
   const { nav } = qs.parse(search, { ignoreQueryPrefix: true })
 
   const handleBook = async () => {
-    setFetch({ isReady: false, isLoading: true })
-    const book = await fetchBookFile({ id, language })
+    setIsLoading(true)
+    const book = await fetchBookFile({ id, jwtToken })
     setBook(book)
-    setFetch({ isLoading: false, isReady: true })
+    setIsLoading(false)
   }
 
   const handleLocationChange = newNav => history.push(`?nav=${newNav}`)
   
   useEffect(() => {
-    if(book.id || fetching.isLoading || fetching.isReady) return
-    handleBook()
-  }, [book, fetching])
+    if(!book.id || !isLoading) handleBook()
+    return () => setBook(initialBook)
+  }, [])
 
-  if(!book && !fetching.isLoading && fetching.isReady) return <p>No book :(</p>
-
-  if(fetching.isLoading) return <p>loading</p> 
+  if(isLoading) return <p>loading</p> 
 
   if(subscription.id) return (
     <ReaderWrapper>
@@ -49,7 +51,7 @@ const Reader = ({
     </ReaderWrapper> 
   )
 
-  return (
+  if(book && !subscription.id) return (
     <ReaderWrapper>
       <Ads />
       <Epub 
@@ -59,6 +61,8 @@ const Reader = ({
       />
     </ReaderWrapper>
   )
+
+  return <p>No book :(</p>
 }
 
 export default Reader
