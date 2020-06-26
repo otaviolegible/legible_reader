@@ -9,13 +9,17 @@ import { Reader, SubscriptionInactive } from '../components'
 const Read = () => {
   const [book, setBook] = useState({ id: null, monetization: {} })
   const [isLoading, setIsLoading] = useState(false)
-  const {subscription, isLoading: userLoading} = useUserState()
+  const [isSubscribed, setIsSubscribed] = useState(false)
+  const [isPurchased, setIsPurchased] = useState(false)
+  const {subscription, purchases, isLoading: userLoading} = useUserState()
   const {id, language} = useParams()
 
   const handleBook = async () => {
     setIsLoading(true)
     const book = await fetchBook({ id, language })
     setBook(book)
+    setIsSubscribed(!!subscription.id)
+    setIsPurchased(!!purchases.find(purchase => purchase === book.id))
     setIsLoading(false)
   }
 
@@ -26,11 +30,11 @@ const Read = () => {
 
   if(isLoading && userLoading) return null
 
-  if(book.monetization.subscription && !subscription.id) return (
+  if(book.monetization.purchase && !isPurchased || book.monetization.subscription && !isSubscribed) return (
     <>
       <h2>Subscribe maybe?</h2>
       <SubscriptionInactive />
-    </>
+    </> 
   )
 
   return <Reader />
