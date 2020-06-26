@@ -1,8 +1,8 @@
 import 'babel-polyfill'
 import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Switch, Route, useHistory } from 'react-router-dom'
-import { LegibleTheme } from 'legible-ui-components'
-import { AuthProvider, UserProvider, useUserDispatch, useAuthState, useAuthDispatch } from 'legible-context-provider'
+import { LegibleTheme } from '@legible/ui-components'
+import { AuthProvider, UserProvider, useUserDispatch, useAuthState, useAuthDispatch } from '@legible/context-provider'
 
 import Home from './Home'
 import Book from './Book'
