@@ -9,6 +9,7 @@ import Book from './Book'
 import Read from './Read'
 import NotFound from './NotFound'
 import SignIn from './SignIn'
+import SignUp from './SignUp'
 import SearchResults from './SearchResults'
 import Profile from './Profile'
 import Purchase from './Purchase'
@@ -63,6 +64,9 @@ const Routing = () => {
         </Route>
         <Route path="/sign-in">
           <SignIn />
+        </Route>
+        <Route path="/sign-up">
+          <SignUp />
         </Route>
         <Route path="/book/:id">
           <Book />
