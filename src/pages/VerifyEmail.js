@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
+import { Container, P } from '@legible/ui-components'
 import { useAuthState, useAuthDispatch } from '@legible/context-provider'
+
+import { Footer, Header } from '../components'
 
 export const VerifyEmail = () => {
   const { isVerified } = useAuthState()
@@ -16,7 +19,15 @@ export const VerifyEmail = () => {
     return
   }, [isVerified])
 
-  return <p>Please wait while we verify your email...</p>   
+  return (
+    <>
+      <Header />
+      <Container maxWidth='45.5rem' margin='7rem auto 12rem'>
+        <P>Please wait while we verify your email...</P>
+      </Container>
+      <Footer />
+    </>
+  )
 }
 
 export default VerifyEmail
