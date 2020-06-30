@@ -1,16 +1,17 @@
 import React from 'react'
 import { Container } from '@legible/ui-components'
 
-import { Header, SearchBar, LatestBooks } from '../components'
+import { Footer, Header, SearchBar, LatestBooks } from '../components'
 
 const Home = () => {
   return (
     <>
-      <Container>
-        <Header />
+      <Header />
+      <Container margin='7rem auto 12rem'>
         <SearchBar />
         <LatestBooks />
       </Container>
+      <Footer />
     </>
   )
 }

@@ -3,14 +3,14 @@ import { useHistory } from 'react-router-dom'
 import { Container } from '@legible/ui-components'
 import { useAuthDispatch, useUserState } from '@legible/context-provider'
 
-import { Footer, Header, SignInModal } from '../components'
+import { Footer, Header, SignUpModal } from '../components'
 
-const SignIn = () => {
-  const { signIn } = useAuthDispatch()
+const SignUp = () => {
+  const { signUp } = useAuthDispatch()
   const { username } = useUserState()
   const history = useHistory()
 
-  const handleSignIn = ({email, password}) => signIn(email, password)
+  const handleSignUp = ({email, password}) => signUp(email, password)
 
   useEffect(() => {
     if(!username) return
@@ -21,10 +21,10 @@ const SignIn = () => {
     <>
       <Header />
       <Container maxWidth='45.5rem' margin='7rem auto 12rem'>
-        <SignInModal handleSignIn={handleSignIn} />
+        <SignUpModal handleSignUp={handleSignUp} />
       </Container>
       <Footer />
     </>
   )
 }
-export default SignIn
+export default SignUp
