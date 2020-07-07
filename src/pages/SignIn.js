@@ -1,14 +1,18 @@
 import React, { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Container } from '@legible/ui-components'
+import { Container, Spinner } from '@legible/ui-components'
 import { useAuthDispatch, useUserState } from '@legible/context-provider'
 
 import { Footer, Header, SignInModal } from '../components'
 
 const SignIn = () => {
   const { signIn } = useAuthDispatch()
-  const { username } = useUserState()
+  const { username, isLoading } = useUserState()
   const history = useHistory()
+
+  if(isLoading) return (
+    <Spinner overlay />
+  )
 
   const handleSignIn = ({email, password}) => signIn(email, password)
 

@@ -1,6 +1,6 @@
-
 import React, { useState } from 'react'
-import { InputText, Button } from '@legible/ui-components'
+import { NavLink } from 'react-router-dom'
+import { InputText, Button, H1, Link, P } from '@legible/ui-components'
 
 export const SignUpModal = ({
   email: initialEmail = '',
@@ -18,11 +18,41 @@ export const SignUpModal = ({
   const handleSignUp = () => signUpCallback({email, password})
 
   return (
+
     <>
-      <InputText placeholder='email' value={email} onChange={handleEmail} />
-      <InputText placeholder='password' value={password} onChange={handlePassword} />
-      <InputText placeholder='confirm password' value={password2} onChange={handlePassword2} />
-      <Button onClick={handleSignUp}>Submit</Button>   
+      <H1 className='text-center mb-5'>Sign up by email</H1>
+      <InputText
+        id='sign-up-email'
+        hideLabel
+        labelText='Email'
+        placeholder='Email'
+        value={email}
+        onChange={handleEmail}
+      />
+      <InputText
+        id='sign-up-password'
+        className='mt-3 mb-4'
+        hideLabel
+        labelText='Password'
+        placeholder='Password'
+        value={password}
+        onChange={handlePassword}
+      />
+      <InputText
+        id='sign-up-confirm-password'
+        className='mt-3 mb-4'
+        hideLabel
+        labelText='Confirm Password'
+        placeholder='Confirm Password'
+        value={password2}
+        onChange={handlePassword2}
+      />
+      {/* TO DO: Add proper links once pages have been added */}
+      <P className='mt-4 mb-5'><small>By signing up you agree to our <Link href='' color='inherit'>Terms of Service</Link> and <Link href='' color='inherit'>Privacy Policy</Link></small></P>
+      {/* TO DO: Add opt-out for receiving emails */}
+      <Button className='mb-5' fullWidth onClick={handleSignUp}>Sign Up</Button>
+      <P>Already have a Legible account? <Link as={NavLink} to='/sign-in'>Log in</Link></P>
+      {/* TO DO: Add FB + Google Sign up */}
     </>
   )
 }
