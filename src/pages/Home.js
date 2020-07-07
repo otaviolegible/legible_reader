@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container } from '@legible/ui-components'
+import { Container, FlexBox } from '@legible/ui-components'
 
 import { Footer, Header, SearchBar, LatestBooks } from '../components'
 
@@ -8,7 +8,9 @@ const Home = () => {
     <>
       <Header />
       <Container margin='7rem auto 12rem'>
-        <SearchBar />
+        <FlexBox className='mb-5' justify='flex-end'>
+          <SearchBar placeholder='Search for books' />
+        </FlexBox>
         <LatestBooks />
       </Container>
       <Footer />

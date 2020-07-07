@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import { BookGrid, H1 } from '@legible/ui-components'
+
 import BookPromotion from './BookPromotion'
 import { fetchBooks } from '../services';
 
@@ -18,15 +20,12 @@ const RandomBooks = ({
 
   return (
     <>
-      <h2>Latest books</h2>
-      <p>latest books</p>
-      <ul>
+      <H1 className='mb-10'>Browse</H1>
+      <BookGrid>
         {books.map((book, i) => (
-          <li key={i} style={{ display: 'inline-block' }}>
-            <BookPromotion book={book} />
-          </li>
+          <BookPromotion key={i} book={book} />
         ))}
-      </ul>
+      </BookGrid>
     </>
   )
 }
