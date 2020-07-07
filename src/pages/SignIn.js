@@ -19,7 +19,7 @@ const SignIn = () => {
 
   return (
     <>
-      <Header />
+      <Header logoOnly />
       <Container maxWidth='45.5rem' margin='7rem auto 12rem'>
         <SignInModal handleSignIn={handleSignIn} />
       </Container>

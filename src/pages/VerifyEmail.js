@@ -21,7 +21,7 @@ export const VerifyEmail = () => {
 
   return (
     <>
-      <Header />
+      <Header logoOnly />
       <Container maxWidth='45.5rem' margin='7rem auto 12rem'>
         <P>Please wait while we verify your email...</P>
       </Container>
