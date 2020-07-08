@@ -6,7 +6,7 @@ import { Reader as ReaderWrapper } from '@legible/ui-components';
 import Epub from './Epub'
 import Ads from './Ads'
 import { fetchBookFile } from '../services'
-import { useAuthState } from 'legible-context-provider/dist/contexts/auth';
+import { useAuthState } from '@legible/context-provider';
 
 const Reader = ({
   book: initialBook = {

@@ -8,7 +8,10 @@ import Home from './Home'
 import Book from './Book'
 import Read from './Read'
 import NotFound from './NotFound'
+import ForgotPassword from './ForgotPassword'
+import ResetPassword from './ResetPassword'
 import SignIn from './SignIn'
+import SignUp from './SignUp'
 import SearchResults from './SearchResults'
 import Profile from './Profile'
 import Purchase from './Purchase'
@@ -61,6 +64,15 @@ const Routing = () => {
         </Route>
         <Route path="/sign-in">
           <SignIn />
+        </Route>
+        <Route path="/sign-up">
+          <SignUp />
+        </Route>
+        <Route path="/forgot-password">
+          <ForgotPassword />
+        </Route>
+        <Route path="/reset-password">
+          <ResetPassword />
         </Route>
         <Route path="/book/:id">
           <Book />

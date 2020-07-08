@@ -9,13 +9,13 @@ trigger:
 variables:
 
   # Azure Resource Manager connection created during pipeline creation
-  azureSubscription: '8ec05be6-fc10-43e0-afa2-49d03d09c574'
+  azureSubscription: 'e3a2f88d-1a41-48be-b4cd-6ba2245065f6'
 
   # Web app name
-  webAppName: 'legible-media-web-client'
+  webAppName: 'legible-reader-web-client'
   
   # Environment name
-  environmentName: 'legible-media-web-client'
+  environmentName: 'legible-reader-web-client'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
@@ -57,18 +57,25 @@ stages:
         deploy:
           steps:            
           - task: AzureRmWebAppDeployment@4
-            displayName: 'Azure App Service Deploy: legible-media-web-client'
+            displayName: 'Azure App Service Deploy: legible-reader-web-client'
             inputs:
               azureSubscription: $(azureSubscription)
               appType: webAppLinux
               WebAppName: $(webAppName)
               packageForLinux: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
               RuntimeStack: 'NODE|10.10'
-              StartupCommand: 'yarn start'
+              StartupCommand: 'npm run build:start'
               ScriptType: 'Inline Script'
               InlineScript: |
-                yarn
-                yarn build
+                rm -rf package-lock.json node_modules
+                npm install
+                npm run build --if-present
               AppSettings: |
-                -ADB2C_CLIENT_ID $(ADB2C_CLIENT_ID) 
-                -DNS $(DNS)
+                -AUTOSUGGEST $(AUTOSUGGEST) 
+                -SEARCH $(SEARCH) 
+                -USERS $(USERS) 
+                -BOOKS $(BOOKS) 
+                -PAYMENT $(PAYMENT) 
+                -AUTOSUGGEST_API_KEY $(AUTOSUGGEST_API_KEY) 
+                -SEARCH_API_KEY $(SEARCH_API_KEY) 
+                -STRIPE_API_KEY $(STRIPE_API_KEY)
