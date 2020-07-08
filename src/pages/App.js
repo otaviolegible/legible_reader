@@ -36,17 +36,15 @@ const Routing = () => {
   const {getUser} = useUserDispatch()
   const {getAccessToken} = useAuthDispatch()
   const {session} = useAuthState()
+  const {jwtToken} = session
+
+  const handleUser = async () => {
+    if(jwtToken !== '') await getUser({jwtToken})
+    if(jwtToken === '') await getAccessToken()
+  }
 
   useEffect(() => {
-    if(!session) return
-    if(session.jwtToken === '') return
-    getUser({jwtToken: session.jwtToken})
-  }, [session])
-
-  useEffect(() => {
-    if(!session) return
-    if(session.jwtToken !== '') return
-    getAccessToken()
+    if(session) handleUser()    
   }, [session])
 
   return (

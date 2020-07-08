@@ -5,15 +5,16 @@ import { CreditCard as CreditCardStyles } from '@legible/ui-components'
 
 const SubscriptionForm = () => {
   const {session} = useAuthState();
-  const {isLoading, email} = useUserState();
-  const {createSubscription} = useUserDispatch()
+  const {isLoading, email, customer} = useUserState();
+  const {createSubscription, createCustomer} = useUserDispatch()
   const stripe = useStripe();
   const elements = useElements();
+  const {jwtToken} = session
 
   const handleSubmit = async (e) => {
     const type = 'card'
     const card = elements.getElement(CardElement)
-    const billing_details = { email: user.email }
+    const billing_details = { email }
 
     e.preventDefault()
 
@@ -21,7 +22,8 @@ const SubscriptionForm = () => {
 
     const {paymentMethod} = await stripe.createPaymentMethod({ type, card, billing_details});
   
-    createSubscription(session.jwtToken, email, paymentMethod)
+    if(!customer.id) await createCustomer(email, jwtToken)
+    createSubscription(jwtToken, email, paymentMethod)
   };
 
   return (

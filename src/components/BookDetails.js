@@ -2,27 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { GridContainer } from '@legible/ui-components'
 import { fetchBook } from '../services'
-
-const ReadAvailable = ({ book }) => {
-  const {monetization = {}, id, pricing} = book
-  const {ads = false, subscription = false, purchase = false} = monetization
-  const {list, sale} = pricing
-
-  if(purchase && !ads && !subscription) {
-    return <Link to={`/purchase/${id}`}>Purchase: {list}</Link>
-  }
-
-  if(purchase && (ads || subscription)) {
-    return (
-      <>
-        <Link to={`/read/${id}`}>Read</Link>
-        <Link to={`/purchase/${id}`}>Purchase: {list}</Link>
-      </>
-    )
-  }
-
-  return <Link to={`/read/${id}`}>Read</Link>
-}
+import { ReadCTA } from '../components'
 
 const BookDetails = ({ book: initialBook = { id: null, cover: { url: null}, pricing: { list: null, sale: null } } }) => {
   const [ book, setBook ] = useState(initialBook)
@@ -42,7 +22,7 @@ const BookDetails = ({ book: initialBook = { id: null, cover: { url: null}, pric
 
   if(!book && !isLoading) return <p>No book :(</p>
 
-  if(isLoading) return null
+  if(isLoading) return <p>Loading</p>
 
   return (
     <GridContainer columns='minmax(28rem, 30rem) minmax(65%, 1fr)' gap='8rem' as='section'>
@@ -51,7 +31,7 @@ const BookDetails = ({ book: initialBook = { id: null, cover: { url: null}, pric
       </figure>
       <article>
         <h2>{book.title}</h2>
-        <ReadAvailable book={book} />
+        <ReadCTA book={book} />
       </article>
     </GridContainer>
   )

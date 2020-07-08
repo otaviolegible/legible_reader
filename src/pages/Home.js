@@ -5,13 +5,11 @@ import { Header, SearchBar, LatestBooks } from '../components'
 
 const Home = () => {
   return (
-    <>
-      <Container>
-        <Header />
-        <SearchBar />
-        <LatestBooks />
-      </Container>
-    </>
+    <Container>
+      <Header />
+      <SearchBar />
+      <LatestBooks />
+    </Container>
   )
 }
 
