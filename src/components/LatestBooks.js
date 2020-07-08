@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { BookGrid, H1 } from '@legible/ui-components'
+import { BookGrid } from '@legible/ui-components'
 
 import BookPromotion from './BookPromotion'
 import { fetchBooks } from '../services';
@@ -19,14 +19,11 @@ const RandomBooks = ({
   }, [])
 
   return (
-    <>
-      <H1 className='mb-10'>Browse</H1>
-      <BookGrid>
-        {books.map((book, i) => (
-          <BookPromotion key={i} book={book} />
-        ))}
-      </BookGrid>
-    </>
+    <BookGrid>
+      {books.map((book, i) => (
+        <BookPromotion key={i} book={book} />
+      ))}
+    </BookGrid>
   )
 }
 
