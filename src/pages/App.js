@@ -6,6 +6,7 @@ import { AuthProvider, UserProvider, useUserDispatch, useAuthState, useAuthDispa
 
 import Home from './Home'
 import Book from './Book'
+import Browse from './Browse'
 import Read from './Read'
 import NotFound from './NotFound'
 import ForgotPassword from './ForgotPassword'
@@ -73,6 +74,9 @@ const Routing = () => {
         </Route>
         <Route path="/reset-password">
           <ResetPassword />
+        </Route>
+        <Route path="/browse">
+          <Browse />
         </Route>
         <Route path="/book/:id">
           <Book />
