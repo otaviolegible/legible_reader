@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { GridContainer } from '@legible/ui-components'
+import { Button, Container, GridContainer, H1, H2, H3, P } from '@legible/ui-components'
 import { fetchBook } from '../services'
 import { ReadCTA } from '../components'
 
