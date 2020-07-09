@@ -17,6 +17,10 @@ const BookDetails = ({ book: initialBook = { id: null, cover: { url: null}, pric
   }
   
   useEffect(() => {
+    window.scrollTo(0,0)
+  }, [])
+
+  useEffect(() => {
     if(!book.id && !isLoading) handleBook()
   }, [book])
 

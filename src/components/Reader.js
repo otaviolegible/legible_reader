@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, useHistory, useLocation } from 'react-router-dom'
 import qs from 'qs'
-import { useUserState } from '@legible/context-provider';
+import { useUserState, useAuthState } from '@legible/context-provider';
 import { Reader as ReaderWrapper } from '@legible/ui-components';
 import Epub from './Epub'
 import Ads from './Ads'
 import { fetchBookFile } from '../services'
-import { useAuthState } from '@legible/context-provider';
 
 const Reader = ({
   book: initialBook = {
@@ -41,9 +40,19 @@ const Reader = ({
 
   if(isLoading) return <p>loading</p> 
 
-  return (
+  if(customer && customer.sub_id) return (
     <ReaderWrapper>
-      {/* <Ads /> */}
+      <Epub 
+        url={book.book}
+        location={nav}
+        locationChanged={handleLocationChange}
+      />
+    </ReaderWrapper> 
+  )
+
+  if(book && customer && !customer.sub_id) return (
+    <ReaderWrapper>
+      <Ads />
       <Epub 
         url={book.book}
         location={nav}
@@ -51,28 +60,8 @@ const Reader = ({
       />
     </ReaderWrapper>
   )
-  // if(customer && customer.sub_id) return (
-  //   <ReaderWrapper>
-  //     <Epub 
-  //       url={book.book}
-  //       location={nav}
-  //       locationChanged={handleLocationChange}
-  //     />
-  //   </ReaderWrapper> 
-  // )
 
-  // if(book && customer && !customer.sub_id) return (
-  //   <ReaderWrapper>
-  //     <Ads />
-  //     <Epub 
-  //       url={book.book}
-  //       location={nav}
-  //       locationChanged={handleLocationChange}
-  //     />
-  //   </ReaderWrapper>
-  // )
-
-  // return <p>No book :(</p>
+  return <p>No book :(</p>
 }
 
 export default Reader
