@@ -2073,10 +2073,10 @@
   resolved "https://registry.yarnpkg.com/@formatjs/intl-utils/-/intl-utils-2.2.5.tgz#eaafd94df3d102ee13e54e80f992a33868a6b1e8"
   integrity sha512-p7gcmazKROteL4IECCp03Qrs790fZ8tbemUAjQu0+K0AaAlK49rI1SIFFq3LzDUAqXIshV95JJhRe/yXxkal5g==
 
-"@legible/context-provider@^1.4.6":
-  version "1.4.8"
-  resolved "https://pkgs.dev.azure.com/legiblemedia/legible-registry/_packaging/legible/npm/registry/@legible/context-provider/-/context-provider-1.4.8.tgz#ca80d6bdd7d892a8568f597d7f588590beee36fe"
-  integrity sha1-yoDWvdfYkqhWj1l9f1iFkL7uNv4=
+"@legible/context-provider@^1.4.9":
+  version "1.4.9"
+  resolved "https://pkgs.dev.azure.com/legiblemedia/legible-registry/_packaging/legible/npm/registry/@legible/context-provider/-/context-provider-1.4.9.tgz#d6a32798df1480261df5d2cf162cfa87062987c6"
+  integrity sha1-1qMnmN8UgCYd9dLPFiz6hwYph8Y=
   dependencies:
     aws-amplify "^3.0.16"
     dotenv-webpack "^1.7.0"
