@@ -27,7 +27,7 @@ const CheckoutForm = ({ book }) => {
     if(!stripe || !elements) return
 
     const {paymentMethod} = await stripe.createPaymentMethod({ type, card, billing_details })
-    const customer = userCustomer || await createCustomer(jwtToken, email, paymentMethod.id)
+    const customer = userCustomer || await createCustomer(jwtToken, email, paymentMethod)
 
     const buyer = { id: customer.id, book: book.id }
 
@@ -44,9 +44,9 @@ const CheckoutForm = ({ book }) => {
 }
 
 const BookPurchase = ({ book: initialBook = {id: null} }) => {
-  const [ book, setBook ] = useState(initialBook)
-  const [ isLoading, setIsLoading ] = useState(false)
-  const {customer} = useUserState();
+  const [book, setBook] = useState(initialBook)
+  const [isLoading, setIsLoading] = useState(false)
+  const {customer, getCustomer} = useUserState();
   const {id} = useParams()
 
   const handleBook = async () => {
@@ -64,9 +64,9 @@ const BookPurchase = ({ book: initialBook = {id: null} }) => {
 
   if(isLoading) return null
 
-  if(customer) {
-    return <p>I exist already! handle cards display</p>
-  }
+  // if(customer) {
+  //   return <p>I exist already! handle cards display</p>
+  // }
 
   return (
     <Elements stripe={stripePromise}>
