@@ -18,8 +18,8 @@ const useInterval = (callback, delay) => {
 
 const AdContent = () => (
   <>
-    <h2>Subscribe to Legible</h2>
-    <p>Over a many books</p>
+    <h2>Ad</h2>
+    <p>Ads go here</p>
   </>
 )
 

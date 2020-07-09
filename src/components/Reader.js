@@ -16,7 +16,7 @@ const Reader = ({
 }) => {
   const [ book, setBook ] = useState(initialBook)
   const [isLoading, setIsLoading] = useState(true)
-  const { subscription } = useUserState()
+  const { customer } = useUserState()
   const { session } = useAuthState()
   const history = useHistory()
   const { search } = useLocation()
@@ -41,7 +41,7 @@ const Reader = ({
 
   if(isLoading) return <p>loading</p> 
 
-  if(subscription.id) return (
+  if(customer.sub_id) return (
     <ReaderWrapper>
       <Epub 
         url={book.book}
@@ -51,7 +51,7 @@ const Reader = ({
     </ReaderWrapper> 
   )
 
-  if(book && !subscription.id) return (
+  if(book && !customer.sub_id) return (
     <ReaderWrapper>
       <Ads />
       <Epub 
