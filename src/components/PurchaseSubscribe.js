@@ -26,7 +26,7 @@ const BuyNow = ({ pricing: {list = '', sale = ''}, id = '' }) => {
   return (
     <Container className='pt-5 pr-5 pb-5 pl-5' border borderRadius margin='0' maxWidth='33.5rem'>
       <P><strong>Buy The Ebook</strong></P>
-      <P className='mt-2 mb-4'>$ {list}</P>
+      <P className='mt-2 mb-4'>$ 15.99</P>
       <Button type='secondary' appearance='outline' size='small' as={Link} to={`/purchase/${id}`}>Buy now</Button>
     </Container>
   )
