@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { useUserState } from 'legible-context-provider'
+import { useUserState } from '@legible/context-provider'
 
 const PurchaseValue = ({ pricing: {list = '', sale = ''}, id = '' }) => {
   if(sale) {
