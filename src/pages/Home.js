@@ -5,7 +5,7 @@ import { Button, Container, FlexBox, GridContainer, Hero as HeroWrapper, H1, H2,
 import { Footer, Header, LatestBooks } from '../components'
 
 const Hero = () => (
-  <HeroWrapper articleSmall background='../../static/img/legible-reader-hero.svg'>
+  <HeroWrapper articleSmall background='https://legible.blob.core.windows.net/static/publisher-web-client/img/legible-reader-hero.svg'>
     <Container className='hero__container'>
       <article>
         <H1 size='large'>Books<br/>unbound.</H1>
