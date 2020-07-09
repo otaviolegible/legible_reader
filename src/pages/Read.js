@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react'
 import {useParams} from 'react-router-dom'
-import { useHistory } from 'react-router-dom'
 import {useUserState} from '@legible/context-provider'
 
 import {fetchBook} from '../services'
@@ -18,7 +17,7 @@ const Read = () => {
     setIsLoading(true)
     const book = await fetchBook({ id, language })
     setBook(book)
-    setIsSubscribed(customer && !!customer.sub_id)
+    // setIsSubscribed(customer && !!customer.sub_id)
     setIsPurchased(purchases && !!purchases.find(purchase => purchase === book.id))
     setIsLoading(false)
   }
