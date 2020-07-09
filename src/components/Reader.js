@@ -43,7 +43,7 @@ const Reader = ({
 
   return (
     <ReaderWrapper>
-      <Ads />
+      {/* <Ads /> */}
       <Epub 
         url={book.book}
         location={nav}
