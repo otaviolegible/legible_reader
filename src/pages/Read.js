@@ -11,15 +11,15 @@ const Read = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [isSubscribed, setIsSubscribed] = useState(false)
   const [isPurchased, setIsPurchased] = useState(false)
-  const {subscription, purchases, isLoading: userLoading} = useUserState()
+  const {customer, purchases, isLoading: userLoading} = useUserState()
   const {id, language} = useParams()
 
   const handleBook = async () => {
     setIsLoading(true)
     const book = await fetchBook({ id, language })
     setBook(book)
-    setIsSubscribed(!!subscription.id)
-    setIsPurchased(!!purchases.find(purchase => purchase === book.id))
+    setIsSubscribed(customer && !!customer.sub_id)
+    setIsPurchased(purchases && !!purchases.find(purchase => purchase === book.id))
     setIsLoading(false)
   }
 
@@ -30,7 +30,7 @@ const Read = () => {
 
   if(isLoading && userLoading) return null
 
-  if(book.monetization.purchase && !isPurchased || book.monetization.subscription && !isSubscribed) return (
+  if(book.monetization.purchase && !isPurchased && book.monetization.subscription && !isSubscribed) return (
     <>
       <h2>Subscribe maybe?</h2>
       <SubscriptionInactive />
