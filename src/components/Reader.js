@@ -41,7 +41,7 @@ const Reader = ({
 
   if(isLoading) return <p>loading</p> 
 
-  if(customer.sub_id) return (
+  if(customer && customer.sub_id) return (
     <ReaderWrapper>
       <Epub 
         url={book.book}
@@ -51,7 +51,7 @@ const Reader = ({
     </ReaderWrapper> 
   )
 
-  if(book && !customer.sub_id) return (
+  if(book && customer && !customer.sub_id) return (
     <ReaderWrapper>
       <Ads />
       <Epub 
