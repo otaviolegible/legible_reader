@@ -41,17 +41,7 @@ const Reader = ({
 
   if(isLoading) return <p>loading</p> 
 
-  if(customer && customer.sub_id) return (
-    <ReaderWrapper>
-      <Epub 
-        url={book.book}
-        location={nav}
-        locationChanged={handleLocationChange}
-      />
-    </ReaderWrapper> 
-  )
-
-  if(book && customer && !customer.sub_id) return (
+  return (
     <ReaderWrapper>
       <Ads />
       <Epub 
@@ -61,8 +51,28 @@ const Reader = ({
       />
     </ReaderWrapper>
   )
+  // if(customer && customer.sub_id) return (
+  //   <ReaderWrapper>
+  //     <Epub 
+  //       url={book.book}
+  //       location={nav}
+  //       locationChanged={handleLocationChange}
+  //     />
+  //   </ReaderWrapper> 
+  // )
 
-  return <p>No book :(</p>
+  // if(book && customer && !customer.sub_id) return (
+  //   <ReaderWrapper>
+  //     <Ads />
+  //     <Epub 
+  //       url={book.book}
+  //       location={nav}
+  //       locationChanged={handleLocationChange}
+  //     />
+  //   </ReaderWrapper>
+  // )
+
+  // return <p>No book :(</p>
 }
 
 export default Reader
