@@ -52,7 +52,7 @@ const Reader = ({
 
   if(book && customer && !customer.sub_id) return (
     <ReaderWrapper>
-      <Ads />
+      {/* <Ads /> */}
       <Epub 
         url={book.book}
         location={nav}

@@ -17,7 +17,7 @@ const BookDetails = ({ book: initialBook = { id: null, cover: { url: null}, pric
   }
   
   useEffect(() => {
-    window.scrollTo(0,0)
+    document.querySelector('body').scrollTo({ top: 0 })
   }, [])
 
   useEffect(() => {
