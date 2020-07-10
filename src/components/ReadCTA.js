@@ -38,7 +38,7 @@ const ReadCTA = ({ book }) => {
   //   )
   // }
 
-  return <Button className='mt-5' fullWidth as={Link} to={`/read/${id}`}>Read</Button>
+  return <Button className='mt-5' fullWidth as={Link} to={`/read/${id}`}>Read now</Button>
 }
 
 export default ReadCTA

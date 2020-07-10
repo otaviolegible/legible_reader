@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams, useHistory, useLocation } from 'react-router-dom'
 import qs from 'qs'
 import { useUserState, useAuthState } from '@legible/context-provider';
-import { Reader as ReaderWrapper } from '@legible/ui-components';
+import { Reader as ReaderWrapper, Spinner } from '@legible/ui-components';
 import Epub from './Epub'
 import Ads from './Ads'
 import { fetchBookFile } from '../services'
@@ -38,7 +38,7 @@ const Reader = ({
     return () => setBook(initialBook)
   }, [])
 
-  if(isLoading) return <p>loading</p> 
+  if(isLoading) return <Spinner overlay />
 
   if(customer && customer.sub_id) return (
     <ReaderWrapper>

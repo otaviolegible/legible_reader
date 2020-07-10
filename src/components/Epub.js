@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Book, Rendition } from 'epubjs'
+import { Button } from '@legible/ui-components';
 // import InlineView from 'epubjs/lib/managers/views/inline'
 
 const Epub = ({
@@ -12,7 +13,7 @@ const Epub = ({
   },
   options: initialOptions = {
     method: 'continuous',
-    width: '100%',
+    width: '90%',
     height: '100%',
     // view: InlineView
   }
@@ -84,8 +85,8 @@ const Epub = ({
   return (
     <>
       <nav>
-        <button className='prev' onClick={handlePrev}>&lang;</button>
-        <button className='next' onClick={handleNext}>&rang;</button>
+        <Button className='prev' onClick={handlePrev} type='icon' icon='arrowprev' aria-label='Previous Page' />
+        <Button className='next' onClick={handleNext} type='icon' icon='arrownext' aria-label='Next Page' />
       </nav>
       <div id="book-area" />
     </>
