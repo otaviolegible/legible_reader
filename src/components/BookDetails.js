@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { Button, Container, GridContainer, H1, H2, H3, P } from '@legible/ui-components'
+import { Container, GridContainer, H1, H2, H3, P, Spinner } from '@legible/ui-components'
 import { fetchBook } from '../services'
 import { PurchaseSubscribe, ReadCTA } from '../components'
 
@@ -26,7 +26,7 @@ const BookDetails = ({ book: initialBook = { id: null, cover: { url: null}, pric
 
   if(!book && !isLoading) return <p>No book :(</p>
 
-  if(isLoading) return <p>Loading</p>
+  if(isLoading) return <Spinner overlay />
 
   return (
     <GridContainer columns='minmax(19.2rem, 31.3rem) minmax(65%, 1fr)' columnsTablet='repeat(auto-fit, minmax(28rem, 1fr))' gap='4.5rem' as='section'>
