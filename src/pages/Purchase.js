@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import {useParams} from 'react-router-dom'
-import {useUserState, useUserDispatch, useAuthState} from '@legible/context-provider'
+import {useUserState} from '@legible/context-provider'
 
 import {fetchBook} from '../services'
 import { Header } from '../components'
+
+import CardHandler from '../components/CardHandler'
 import BookPurchase from '../components/BookPurchase'
 
 const Purchase = () => {
-  const [book, setBook] = useState({ id: null })
+  const [book, setBook] = useState({ id: null, pricing: { list: null, sale: null, taxes: { details: [] }  } })
   const [isLoading, setIsLoading] = useState(false)
   const {isLoading: userIsLoading} = useUserState();
-  const {getCustomer} = useUserDispatch()
-  const {session} = useAuthState()
-  const {jwtToken} = session
   const {id} = useParams()
 
   const handleBook = async () => {
@@ -26,17 +25,17 @@ const Purchase = () => {
     if(!book.id && !isLoading) handleBook()
   }, [])
 
-  if(isLoading || userIsLoading) return null
+  if(isLoading || userIsLoading) return <p>Loading...</p>
 
   return (
     <>    
       <Header />
       <div>
         <h2>Secure checkout</h2>
-        <BookPurchase book={book} />
+        <CardHandler book={book} />
       </div>
       <div>
-        <h2>You're purchasing the ebook: {book.title}</h2>
+        <BookPurchase book={book} />
       </div>
     </>
   )
