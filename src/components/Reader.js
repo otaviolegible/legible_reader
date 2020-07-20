@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, useHistory, useLocation } from 'react-router-dom'
+import Fullscreen from "react-full-screen";
 import qs from 'qs'
 import { useUserState, useAuthState } from '@legible/context-provider';
-import { Reader as ReaderWrapper, Spinner } from '@legible/ui-components';
+import { Container, Reader as ReaderWrapper, Spinner } from '@legible/ui-components';
+import ReaderNav from './ReaderNav'
 import Epub from './Epub'
 import Ads from './Ads'
 import { fetchBookFile } from '../services'
@@ -15,6 +17,7 @@ const Reader = ({
 }) => {
   const [ book, setBook ] = useState(initialBook)
   const [isLoading, setIsLoading] = useState(true)
+  const [isFullscreen, setIsFullscreen]= useState(false);
   const { customer } = useUserState()
   const { session } = useAuthState()
   const history = useHistory()
@@ -33,6 +36,8 @@ const Reader = ({
 
   const handleLocationChange = newNav => history.push(`?nav=${newNav}`)
   
+  const handleFullscreen = () => setIsFullscreen(!isFullscreen)
+
   useEffect(() => {
     if(!book.id || !isLoading) handleBook()
     return () => setBook(initialBook)
@@ -52,12 +57,21 @@ const Reader = ({
 
   if(book && customer && !customer.sub_id) return (
     <ReaderWrapper>
-      {/* <Ads /> */}
-      <Epub 
-        url={book.book}
-        location={nav}
-        locationChanged={handleLocationChange}
-      />
+      <Fullscreen enabled={isFullscreen}>
+        <Container backgroundColorWhite fullWidth>
+          {/* <Ads /> */}
+          <ReaderNav
+            bookId={id}
+            fullscreen={handleFullscreen}
+            isFullscreen={isFullscreen}
+          />
+          <Epub
+            url={book.book}
+            location={nav}
+            locationChanged={handleLocationChange}
+          />
+        </Container>
+      </Fullscreen>
     </ReaderWrapper>
   )
 
