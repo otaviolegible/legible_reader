@@ -48,7 +48,7 @@ export const SignUpModal = ({
         onChange={handlePassword2}
       />
       {/* TO DO: Add proper links once pages have been added */}
-      <P className='mt-4 mb-5'><small>By signing up you agree to our <Link href='' color='inherit'>Terms of Service</Link> and <Link href='' color='inherit'>Privacy Policy</Link></small></P>
+      <P className='mt-4 mb-5'><small>By signing up you agree to our <Link as={NavLink} to='/terms-of-service' color='inherit'>Terms of Service</Link> and <Link as={NavLink} to='' color='inherit'>Privacy Policy</Link></small></P>
       {/* TO DO: Add opt-out for receiving emails */}
       <Button className='mb-5' fullWidth onClick={handleSignUp}>Sign Up</Button>
       <P>Already have a Legible account? <Link as={NavLink} to='/sign-in'>Log in</Link></P>

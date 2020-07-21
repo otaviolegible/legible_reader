@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Book, Rendition } from 'epubjs'
-import { Button } from '@legible/ui-components';
+import { Button, Spinner } from '@legible/ui-components';
 // import InlineView from 'epubjs/lib/managers/views/inline'
 
 const Epub = ({
@@ -16,6 +16,10 @@ const Epub = ({
     width: '90%',
     height: '100%',
     // view: InlineView
+  },
+  options: mobileOptions = {
+    ...initialOptions,
+    flow: 'scrolled-doc'
   }
 }) => {
   const [isLoading, setIsLoading] = useState(true)
@@ -33,7 +37,14 @@ const Epub = ({
 
   const handleRendition = () => {
     const res = new Rendition(book, initialOptions)
-    setRendition(res)
+    const resMobile = new Rendition(book, mobileOptions)
+
+    if (window.innerWidth > 887) {
+      setRendition(res)
+    } else {
+      // change flow to scroll > 887
+      setRendition(resMobile)
+    }
   }
 
   const handlePrev = () => rendition.prev()
@@ -80,7 +91,7 @@ const Epub = ({
     return () => setBook()
   }, [rendition])
 
-  if(!rendition) return <p>loading</p>
+  if(!rendition) return <Spinner overlay />
 
   return (
     <>
