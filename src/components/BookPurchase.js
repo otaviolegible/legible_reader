@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
+import { Button } from '@legible/ui-components'
 import { useAuthState, useUserDispatch, useUserState } from '@legible/context-provider'
 
 const BookPurchase = ({ book }) => {
@@ -15,21 +16,21 @@ const BookPurchase = ({ book }) => {
     await purchaseBook(jwtToken, price, buyer)
   }
 
-  useEffect(() => {
-    if(purchases.find(purchase => purchase.id === book.id)) console.log('P U R C H A S E S ', purchases)
-  }, [])
+  // useEffect(() => {
+  //   if(purchases.find(purchase => purchase.id === book.id)) history.push(`/read/${book.id}`)
+  // }, [])
 
   return (
     <>
       <h2>You're purchasing the ebook: {book.title}</h2>
-      <img src={book.cover && book.cover.url} />
+      <img width='200px' src={book.cover && book.cover.url} />
       <div>
         <p>price: {book.pricing.list}</p>
         {book.pricing.taxes.details.map((tax, i) => (
           <p key={i}>{tax.type}: {tax.amount}</p>
         ))}
         <p>Total: {book.pricing.taxes.total}</p>
-        <button disabled={false} onClick={handlePurchase}>Purchase Book</button>
+        <Button disabled={false} onClick={handlePurchase}>Purchase Book</Button>
       </div>
     </>
   )

@@ -3,7 +3,7 @@ import {useParams} from 'react-router-dom'
 import {useUserState} from '@legible/context-provider'
 
 import {fetchBook} from '../services'
-import { Reader, SubscriptionInactive } from '../components'
+import { Reader } from '../components'
 
 const Read = () => {
   const [book, setBook] = useState({ id: null, monetization: {} })
@@ -32,7 +32,7 @@ const Read = () => {
   if(book.monetization.purchase && !isPurchased && book.monetization.subscription && !isSubscribed) return (
     <>
       <h2>Subscribe maybe?</h2>
-      <SubscriptionInactive />
+      <p>redirect to subscruiption page</p>
     </> 
   )
 
