@@ -9,7 +9,7 @@ trigger:
 variables:
 
   # Azure Resource Manager connection created during pipeline creation
-  azureSubscription: 'e3a2f88d-1a41-48be-b4cd-6ba2245065f6'
+  azureSubscription: '92ffd5e1-4925-4fa0-9ea0-01f5b5e7782a'
 
   # Web app name
   webAppName: 'legible-reader-web-client'
@@ -46,6 +46,8 @@ stages:
   displayName: Deploy stage
   dependsOn: Build
   condition: succeeded()
+  variables:
+  - group: env-variables
   jobs:
   - deployment: Deploy
     displayName: Deploy

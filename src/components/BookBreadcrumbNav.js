@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { Breadcrumb, BreadcrumbItem } from '@legible/ui-components'
 import { fetchBook } from '../services'
 
@@ -26,7 +26,7 @@ const BookBreadcrumbNav = ({ book: initialBook = { id: null } }) => {
   return (
     <nav className='mb-5'>
       <Breadcrumb>
-        <BreadcrumbItem href='/browse'>Browse</BreadcrumbItem>
+        <BreadcrumbItem as={Link} to='/browse'>Browse</BreadcrumbItem>
         <BreadcrumbItem isSelected>{book.title}</BreadcrumbItem>
       </Breadcrumb>
     </nav>

@@ -18,6 +18,10 @@ const Epub = ({
     width: '90%',
     height: '100%',
     // view: InlineView
+  },
+  options: mobileOptions = {
+    ...initialOptions,
+    flow: 'scrolled-doc'
   }
 }) => {
   const [isLoading, setIsLoading] = useState(true)
@@ -38,7 +42,14 @@ const Epub = ({
 
   const handleRendition = () => {
     const res = new Rendition(book, initialOptions)
-    setRendition(res)
+    const resMobile = new Rendition(book, mobileOptions)
+
+    if (window.innerWidth > 887) {
+      setRendition(res)
+    } else {
+      // change flow to scroll > 887
+      setRendition(resMobile)
+    }
   }
 
   const setCurrentProgress = locations => {
@@ -92,7 +103,7 @@ const Epub = ({
     if(rendition) initRender()
   }, [rendition])
 
-  if(!rendition) return <p>loading</p>
+  if(!rendition) return <Spinner overlay />
 
   return (
     <>
