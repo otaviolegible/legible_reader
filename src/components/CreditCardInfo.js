@@ -29,7 +29,7 @@ const CreditCardInfo = ({ card }) => {
 
   return (
     <>
-      <p>{card.last4}</p>
+      <p>**** **** **** {card.last4}</p>
       <p>{card.exp_month} / {card.exp_year}</p>
       <DefaultRules card={card} />
       <button onClick={removeCard}>Remove</button>

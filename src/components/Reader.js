@@ -14,7 +14,7 @@ const Reader = ({
   }
 }) => {
   const [ book, setBook ] = useState(initialBook)
-  const [isLoading, setIsLoading] = useState(true)
+  const [ isLoading, setIsLoading ] = useState(true)
   const { customer } = useUserState()
   const { session } = useAuthState()
   const history = useHistory()
@@ -29,6 +29,12 @@ const Reader = ({
     const book = await fetchBookFile({ id, jwtToken })
     setBook(book)
     setIsLoading(false)
+  }
+
+  const progressUpdate = ({location, progress, page}) => {
+    console.log('location', location)
+    console.log('progress', progress * 100)
+    console.log('page', page)
   }
 
   const handleLocationChange = newNav => history.push(`?nav=${newNav}`)
@@ -46,17 +52,19 @@ const Reader = ({
         url={book.book}
         location={nav}
         locationChanged={handleLocationChange}
+        progressUpdate={progressUpdate}
       />
     </ReaderWrapper> 
   )
 
   if(book && customer && !customer.sub_id) return (
     <ReaderWrapper>
-      {/* <Ads /> */}
+      <Ads />
       <Epub 
         url={book.book}
         location={nav}
         locationChanged={handleLocationChange}
+        progressUpdate={progressUpdate}
       />
     </ReaderWrapper>
   )

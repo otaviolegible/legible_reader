@@ -14,7 +14,7 @@ export const SubscriptionPurchase = () => {
     return <p>Loading</p>
   }
 
-  if(customer && customer.subscription && customer.subscription.id) {
+  if(customer.subscription.id) {
     return <p>Cancel subscription</p>
   }
 

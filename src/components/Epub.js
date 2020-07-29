@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { Book, Rendition } from 'epubjs'
+import { Book, Rendition } from '@legible/epubjs'
 import { Button } from '@legible/ui-components';
-// import InlineView from 'epubjs/lib/managers/views/inline'
+// import InlineView from '@legible/epubjs/lib/managers/views/inline'
 
 const Epub = ({
   url,
   location = 0,
+  progress: initialProgress = { percentage: 0, page: 1, location: '' },
   locationChanged = () => {},
+  progressUpdate = () => {},
   settings: initialSettings = {
     encoding: 'base64',
     replacements: 'base64'
@@ -22,11 +24,14 @@ const Epub = ({
   const [nav, setNav] = useState(location)
   const [book, setBook] = useState()
   const [rendition, setRendition] = useState()
+  const [progress, setProgress] = useState(initialProgress.percentage)
+  const [page, setPage] = useState(initialProgress.page)
 
   const handleBook = async () => {
     setIsLoading(true)
     const book = new Book(url, initialSettings)
-    await book.loading.navigation
+    await book.ready
+    book.locations.generate(1024)
     setBook(book)
     setIsLoading(false)
   }
@@ -34,6 +39,15 @@ const Epub = ({
   const handleRendition = () => {
     const res = new Rendition(book, initialOptions)
     setRendition(res)
+  }
+
+  const setCurrentProgress = locations => {
+    const location = locations.start.cfi
+    const progress = book.locations.percentageFromCfi(location)
+    const page = book.locations.locationFromCfi(location)
+    setProgress(progress)
+    setPage(page)
+    progressUpdate({location: locations.end.cfi, progress, page})
   }
 
   const handlePrev = () => rendition.prev()
@@ -50,6 +64,7 @@ const Epub = ({
     rendition.display(nav)
     rendition.on('locationChanged', changeLocation)
     rendition.on('keyup', handleKeyPress)
+    rendition.on('relocated', setCurrentProgress)
   }
 
   const handleKeyPress = e => {
@@ -67,17 +82,14 @@ const Epub = ({
 
   useEffect(() => {
     if(!book || !isLoading) handleBook()
-    return () => setBook()
   }, [])
 
   useEffect(() => {
     if(book) handleRendition()
-    return () => setBook()
   }, [book])
 
   useEffect(() => {
     if(rendition) initRender()
-    return () => setBook()
   }, [rendition])
 
   if(!rendition) return <p>loading</p>

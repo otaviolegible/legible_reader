@@ -18,6 +18,7 @@ import Profile from './Profile'
 import Purchase from './Purchase'
 import VerifyEmail from './VerifyEmail'
 import Premium from './Premium'
+import Library from './Library'
 
 const PrivateRoute = ({ children, ...rest }) => {
   const { session } = useAuthState()
@@ -85,6 +86,9 @@ const Routing = () => {
         <Route path="/premium">
           <Premium />
         </Route>
+        <PrivateRoute path="/library">
+          <Library />
+        </PrivateRoute>
         <PrivateRoute path="/purchase/:id">
           <Purchase />
         </PrivateRoute>

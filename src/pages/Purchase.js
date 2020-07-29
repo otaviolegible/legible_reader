@@ -6,7 +6,7 @@ import {fetchBook} from '../services'
 import { Header } from '../components'
 
 import CardHandler from '../components/CardHandler'
-import BookPurchase from '../components/BookPurchase'
+import BookPurchase from '../components/PurchaseBook'
 
 const Purchase = () => {
   const [book, setBook] = useState({ id: null, pricing: { list: null, sale: null, taxes: { details: [] }  } })
