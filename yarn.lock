@@ -2073,10 +2073,10 @@
   resolved "https://registry.yarnpkg.com/@formatjs/intl-utils/-/intl-utils-2.2.5.tgz#eaafd94df3d102ee13e54e80f992a33868a6b1e8"
   integrity sha512-p7gcmazKROteL4IECCp03Qrs790fZ8tbemUAjQu0+K0AaAlK49rI1SIFFq3LzDUAqXIshV95JJhRe/yXxkal5g==
 
-"@legible/context-provider@^1.4.9":
-  version "1.4.9"
-  resolved "https://pkgs.dev.azure.com/legiblemedia/legible-registry/_packaging/legible/npm/registry/@legible/context-provider/-/context-provider-1.4.9.tgz#d6a32798df1480261df5d2cf162cfa87062987c6"
-  integrity sha1-1qMnmN8UgCYd9dLPFiz6hwYph8Y=
+"@legible/context-provider@^1.4.11":
+  version "1.4.11"
+  resolved "https://pkgs.dev.azure.com/legiblemedia/legible-registry/_packaging/legible/npm/registry/@legible/context-provider/-/context-provider-1.4.11.tgz#8e680b03b746fc96d04137ebc350ce48f99a1b6e"
+  integrity sha1-jmgLA7dG/JbQQTfrw1DOSPmaG24=
   dependencies:
     aws-amplify "^3.0.16"
     dotenv-webpack "^1.7.0"
@@ -2098,10 +2098,10 @@
     url-polyfill "^1.1.9"
     xmldom "^0.1.27"
 
-"@legible/ui-components@^1.2.5":
-  version "1.2.12"
-  resolved "https://pkgs.dev.azure.com/legiblemedia/legible-registry/_packaging/legible/npm/registry/@legible/ui-components/-/ui-components-1.2.12.tgz#ed972877d2bfbb467ab88ccc4b5ca87e7374f5d9"
-  integrity sha1-7Zcod9K/u0Z6uIzMS1yofnN09dk=
+"@legible/ui-components@^1.2.19":
+  version "1.2.19"
+  resolved "https://pkgs.dev.azure.com/legiblemedia/legible-registry/_packaging/legible/npm/registry/@legible/ui-components/-/ui-components-1.2.19.tgz#c3184b7ac894e3ddc9e4fc0bb87a4f55f4f82ba7"
+  integrity sha1-wxhLesiU493J5PwLuHpPVfT4K6c=
   dependencies:
     dotenv-webpack "^1.7.0"
 
