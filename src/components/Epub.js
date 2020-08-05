@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Book, Rendition } from '@legible/epubjs'
-import { Button } from '@legible/ui-components';
+import { Button, Spinner } from '@legible/ui-components';
 // import InlineView from '@legible/epubjs/lib/managers/views/inline'
 
 const Epub = ({
@@ -44,12 +44,7 @@ const Epub = ({
     const res = new Rendition(book, initialOptions)
     const resMobile = new Rendition(book, mobileOptions)
 
-    if (window.innerWidth > 887) {
-      setRendition(res)
-    } else {
-      // change flow to scroll > 887
-      setRendition(resMobile)
-    }
+    return window.innerWidth > 887 ? setRendition(res) : setRendition(resMobile)
   }
 
   const setCurrentProgress = locations => {

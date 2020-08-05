@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams, useHistory, useLocation } from 'react-router-dom'
 import Fullscreen from "react-full-screen";
 import qs from 'qs'
-import { useUserState, useAuthState } from '@legible/context-provider';
+import { useUserState, useAuthState, useUserDispatch } from '@legible/context-provider';
 import { Container, Reader as ReaderWrapper, Spinner } from '@legible/ui-components';
 import ReaderNav from './ReaderNav'
 import Epub from './Epub'
@@ -15,10 +15,12 @@ const Reader = ({
     book: { data: null }
   }
 }) => {
-  const [ book, setBook ] = useState(initialBook)
-  const [isLoading, setIsLoading] = useState(true)
-  const [isFullscreen, setIsFullscreen]= useState(false);
+  const [ book, setBook ] = useState({id: null, book: { data: null }})
+  const [ bookDetails ] = useState(initialBook)
+  const [ isLoading, setIsLoading ] = useState(true)
+  const [ isFullscreen, setIsFullscreen ]= useState(false);
   const { customer } = useUserState()
+  const { setBookProgress } = useUserDispatch()
   const { session } = useAuthState()
   const history = useHistory()
   const { search } = useLocation()
@@ -34,11 +36,14 @@ const Reader = ({
     setIsLoading(false)
   }
 
-  const progressUpdate = ({location, progress, page}) => {
-    console.log('location', location)
-    console.log('progress', progress * 100)
-    console.log('page', page)
-  }
+  const progressUpdate = ({location, progress, page}) => setBookProgress(jwtToken, {
+    id: bookDetails.id, 
+    title: bookDetails.title, 
+    cover: bookDetails.cover, 
+    location, 
+    progress, 
+    page 
+  })
 
   const handleLocationChange = newNav => history.push(`?nav=${newNav}`)
   
@@ -76,6 +81,7 @@ const Reader = ({
             url={book.book}
             location={nav}
             locationChanged={handleLocationChange}
+            progressUpdate={progressUpdate}
           />
         </Container>
       </Fullscreen>

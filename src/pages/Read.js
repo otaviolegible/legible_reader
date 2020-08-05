@@ -36,7 +36,7 @@ const Read = () => {
     </> 
   )
 
-  return <Reader />
+  return <Reader book={book} />
 }
 
 export default Read

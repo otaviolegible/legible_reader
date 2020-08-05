@@ -14,7 +14,6 @@ import ResetPassword from './ResetPassword'
 import SignIn from './SignIn'
 import SignUp from './SignUp'
 import SearchResults from './SearchResults'
-import MyLibrary from './MyLibrary'
 import Profile from './Profile'
 import Purchase from './Purchase'
 import TermsOfService from './TermsOfService'
@@ -88,9 +87,6 @@ const Routing = () => {
         <Route path="/premium">
           <Premium />
         </Route>
-        <PrivateRoute path="/library">
-          <Library />
-        </PrivateRoute>
         <Route path='/terms-of-service'>
           <TermsOfService />
         </Route>
@@ -98,7 +94,7 @@ const Routing = () => {
           <Purchase />
         </PrivateRoute>
         <PrivateRoute path="/my-library">
-          <MyLibrary />
+          <Library />
         </PrivateRoute>
         <PrivateRoute path="/profile">
           <Profile />
